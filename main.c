@@ -2,6 +2,25 @@
 
 int	g_exit_status;
 
+int	loop_readline(t_env **env_lst)
+{
+	char	*input;
+	t_cmd	*cmds;
+
+	while (1)
+	{
+		input = readline("Minishell $ ");
+		if (*input != '\0')
+			add_history(input);
+		if (parsing(input, &cmds, env_lst))
+			return (1);
+		// TODO: execute
+		// TODO: check_status
+		free(input);
+	}
+	return (0);
+}
+
 int	set_terminal(void)
 {
 	struct termios term;
@@ -14,6 +33,21 @@ int	set_terminal(void)
 	return (0);
 }
 
+static void	handle_sigint(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+static void	handle_sigquit(int sig)
+{
+	(void)sig;
+	rl_redisplay();
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
@@ -23,12 +57,19 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (set_terminal())
 		return (1);
+	// FIXME: signal
 	set_signal();
-	// TODO: envp_to_env_lst
 	if (envp_to_env_lst(envp, &env_lst))
+	{
+		env_lstclear(&env_lst, &free);
 		return (1);
-	// TODO: readline_loop
-	// TODO: clear_env_lst
+	}
+	if (loop_readline(&env_lst))
+	{
+		env_lstclear(&env_lst, &free);
+		return (g_exit_status % 255);	
+	}
+	env_lstclear(&env_lst, &free);
 	ft_putendl_fd("Hello", 1);
 	return (g_exit_status % 255);
 }

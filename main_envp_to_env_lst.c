@@ -1,6 +1,29 @@
 #include "main.h"
 
-t_env	*env_lstnew(char *key, char *value)
+void	env_lstdelone(t_env *lst, void (*del)(void *))
+{
+	if (lst == 0 || del == 0)
+		return ;
+	del(lst->key);
+	del(lst->value);
+	free(lst);
+}
+
+void	env_lstclear(t_env **lst, void (*del)(void *))
+{
+	t_env	*next_lst;
+
+	if (*lst == 0 || del == 0)
+		return ;
+	while (*lst != 0)
+	{
+		next_lst = (*lst)->next;
+		env_lstdelone(*lst, del);
+		*lst = next_lst;
+	}	
+}
+
+t_env	*env_lstnew_malloc(char *key, char *value)
 {
 	t_env	*new_lst;
 
@@ -32,16 +55,22 @@ void	env_lstadd_back(t_env **lst, t_env *new)
 
 int envp_to_env_lst(char **envp, t_env **env_lst)
 {
-	int	i;
-	while ((*envp)[i])
+	char	*equal_ptr;
+	int		i;
+	t_env	*env_node;
+
+	i = 0;
+	while (envp[i])
 	{
-		// TODO: split '='
-		// TODO: ft_lstnew
-		// ft_lstnew()
-		// TODO: env_lst->key
-		// TODO: env_lst->value
-		// TODO: ft_lst_add_back
+		equal_ptr = ft_strchr(envp[i], '=');
+		*equal_ptr = '\0';
+		env_node = env_lstnew_malloc(envp[i], equal_ptr + 1);
+		if (!env_node)
+			return (1);
+		env_lstadd_back(env_lst, env_node);
 		i++;
 	}
+	// TODO: SHLVL
+	// TODO: "?" exit status node
 	return (0);
 }
