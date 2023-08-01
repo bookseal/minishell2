@@ -17,7 +17,7 @@ void	token_clear(t_token **lst, void (*del)(void *))
 	while (*lst != 0)
 	{
 		next_lst = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		token_delone(*lst, del);
 		*lst = next_lst;
 	}	
 }

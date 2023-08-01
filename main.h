@@ -6,7 +6,7 @@
 /*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/07/30 06:54:09 by leegichan        ###   ########.fr       */
+/*   Updated: 2023/08/01 09:46:54 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,9 @@ int	update_tokens(t_token **tokens, t_env **env_lst);
 int divide_delimiters(t_token **tokens);
 t_token	*token_new(char *str, int i, size_t len, tags tag, char quote);
 void	token_clear(t_token **lst, void (*del)(void *));
+int assign_tags(t_token **tokens);
+int update_quotes(t_token **tokens);
+void	token_delone(t_token *lst, void (*del)(void *));
+
+
 #endif

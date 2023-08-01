@@ -57,6 +57,7 @@
 "C_Cpp_Runner.useLinkTimeOptimization": false,
 "files.associations": {
 	"libft.h": "c",
-	"main.h": "c"
+	"main.h": "c",
+	"stdio.h": "c"
 }
 }
