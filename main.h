@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/02 11:06:02 by leegichan        ###   ########.fr       */
+/*   Updated: 2023/08/02 17:04:15 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,11 @@ int	is_valid_quote_token(t_token *tokens);
 int insert_quotes_location(t_token *tokens);
 void	replace_env(t_token *tokens, t_env *env_lst);
 void	env_delone(t_env *lst, void (*del)(void *));
+t_env	*get_env_value(char *value_substr, t_env *env_lst);
+char	*update_quote_lo(t_token *token, t_env *env, int i, int len_envkey);
+int	get_len_envkey(t_token *token, int i);
+void	no_env_matched(t_token *token, int *start_i, int len_envkey, int quote);
+void	remove_quotes(t_token *tokens);
+void remove_quotes(t_token *tokens);
+
 #endif

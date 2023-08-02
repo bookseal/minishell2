@@ -15,7 +15,7 @@ int	loop_readline(t_env **env_lst)
 		if (parsing(input, &cmds, env_lst))
 			return (1);
 		// TODO: execute
-		// TODO: check_status
+		// TODO: exit_status
 		free(input);
 	}
 	return (0);
@@ -70,6 +70,5 @@ int	main(int argc, char **argv, char **envp)
 		return (g_exit_status % 255);	
 	}
 	env_lstclear(&env_lst, &free);
-	ft_putendl_fd("Hello", 1);
 	return (g_exit_status % 255);
 }

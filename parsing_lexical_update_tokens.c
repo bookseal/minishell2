@@ -59,6 +59,6 @@ int	update_tokens(t_token **tokens, t_env **env_lst)
 	}
 	insert_quotes_location(*tokens);
 	replace_env(*tokens, *env_lst);
-	// TODO: remove_quotes(tokens);
+	remove_quotes(*tokens);
 	return (0);
 }
