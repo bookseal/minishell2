@@ -6,7 +6,7 @@
 #    By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 20:07:37 by gichlee           #+#    #+#              #
-#    Updated: 2023/07/30 06:28:59 by leegichan        ###   ########.fr        #
+#    Updated: 2023/08/02 10:39:26 by leegichan        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 
 $(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $^ $(HEADER) -g
+	$(CC) $(CFLAGS) -c $^ $(HEADER)
 
 all: $(NAME)
 

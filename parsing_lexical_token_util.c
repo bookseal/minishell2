@@ -59,6 +59,7 @@ t_token	*token_new(char *str, int i, size_t len, tags tag, char quote)
 		new_lst->quote = DOUBLE;
 	else
 		new_lst->quote = NO_QUOTE;
+	new_lst->quote_lo = (char *)ft_calloc(ft_strlen(new_lst->value), sizeof(char));
 	new_lst->next = 0;
 	return (new_lst);
 }

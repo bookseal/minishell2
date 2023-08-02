@@ -52,8 +52,13 @@ int	update_tokens(t_token **tokens, t_env **env_lst)
 	if (update_tags(tokens))
 		return (1);
 	unnecessary_token_delete(tokens);
-	if (update_quotes(tokens))
+	if (!is_valid_quote_token(*tokens))
+	{
+		token_clear(tokens, &free);
 		return (1);
-	// TODO: update_env(tokens, env_lst)
+	}
+	insert_quotes_location(*tokens);
+	replace_env(*tokens, *env_lst);
+	// TODO: remove_quotes(tokens);
 	return (0);
 }

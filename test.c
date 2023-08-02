@@ -1,41 +1,148 @@
-#include <stdio.h>
-#include <stdbool.h>
+// #include "minishell.h"
 
-bool is_valid_token(const char* token) {
-    if (!token) return false;
+// /* This function replaces the token value and quote with new value and quote. */
+// static int replace_token(t_token *tokens, int i, int j, t_var *env_lst)
+// {
+// 	char	*new_value;
+// 	char	*new_blank;
+// 	char	*new_str;
 
-    int i = 0;
-    char opening_quote = token[0];
+// 	/* Copy environment value and join with token value */
+// 	new_value = ft_strdup(env_lst->value);
+// 	tokens->value[i] = '\0';
+// 	new_str = ft_strjoin(tokens->value, new_value);
+// 	free(new_value);
+// 	new_value = ft_strjoin(new_str, tokens->value + j);
+// 	free(new_str);
 
-    // Check if the first character is a quote
-    if (opening_quote != '\'' && opening_quote != '\"') {
-        return false;
-    }
+// 	/* Replace old token value with new one */
+// 	free(tokens->value);
+// 	tokens->value = new_value;
 
-    while (token[i] != '\0') {
-        i++;
-    }
+// 	/* Allocate memory for new quote and initialize it with '2' */
+// 	new_blank = (char *)malloc(sizeof(char) * (ft_strlen(env_lst->value) + 1));
+// 	if (new_blank == 0)
+// 		return (-1);
+// 	new_blank[ft_strlen(env_lst->value)] = '\0';
+// 	ft_memset(new_blank, '2', ft_strlen(env_lst->value));
 
-    // If the last character isn't the same type of quote, it's not a valid token
-    if (token[i-1] != opening_quote) {
-        return false;
-    }
+// 	/* Join new quote with old one */
+// 	tokens->quote[i] = '\0';
+// 	new_str = ft_strjoin(tokens->quote, new_blank);
+// 	free(new_blank);
+// 	new_blank = ft_strjoin(new_str, tokens->quote + j);
+// 	free(new_str);
 
-    return true;
-}
+// 	/* Replace old quote with new one */
+// 	free(tokens->quote);
+// 	tokens->quote = new_blank;
 
-int main() {
-    const char* valid_token1 = "'this is a valid token'";
-    const char* valid_token2 = "\"this is also a valid token\"";
-    const char* invalid_token1 = "'this is not a valid token";
-    const char* invalid_token2 = "\"this is not a valid token";
-    const char* invalid_token3 = "this is not a valid token'";
+// 	return (0);
+// }
 
-    printf("Valid token 1 test: %s\n", is_valid_token(valid_token1) ? "Passed" : "Failed");
-    printf("Valid token 2 test: %s\n", is_valid_token(valid_token2) ? "Passed" : "Failed");
-    printf("Invalid token 1 test: %s\n", is_valid_token(invalid_token1) ? "Failed" : "Passed");
-    printf("Invalid token 2 test: %s\n", is_valid_token(invalid_token2) ? "Failed" : "Passed");
-    printf("Invalid token 3 test: %s\n", is_valid_token(invalid_token3) ? "Failed" : "Passed");
+// /* This function handles the case when no matching environment variable is found. */
+// static int handle_not_found(t_token *tokens, int *i, int j, int quote)
+// {
+// 	t_var	*tmp;
+// 	int		res;
 
-    return 0;
-}
+// 	/* Allocate memory for new variable */
+// 	tmp = (t_var *)malloc(sizeof(t_var) * 1);
+// 	if (tmp == 0)
+// 		return (-1);
+
+// 	/* Allocate memory for variable name and set it */
+// 	tmp->name = (char *)malloc(sizeof(char) * 2);
+// 	if (tmp->name == 0)
+// 		return (-1);
+// 	tmp->name[0] = (quote == 1) ? '1' : '0';
+// 	tmp->name[1] = '\0';
+
+// 	/* Allocate memory for variable value and set it */
+// 	tmp->value = (char *)malloc(sizeof(char) * ((j - *i) == 1 && (tmp->name[0] == '1' || \
+// 		(tokens->value[j] != '\"' && tokens->value[j] != '\'')) ? 2 : 1));
+// 	if (tmp->value == 0)
+// 		return (-1);
+// 	if ((j - *i) == 1 && (tmp->name[0] == '1' || \
+// 		(tokens->value[j] != '\"' && tokens->value[j] != '\'')))
+// 	{
+// 		tmp->value[0] = '$';
+// 		tmp->value[1] = '\0';
+// 	}
+// 	else
+// 		tmp->value[0] = '\0';
+
+// 	tmp->next = 0;
+
+// 	/* Replace the token with new variable and adjust the index i */
+// 	res = replace_token(tokens, *i, j, tmp);
+// 	if (!((j - *i) == 1 && (tmp->name[0] == '1' || \
+// 		(tokens->value[j] == '\"' || tokens->value[j] != '\''))))
+// 		*i = *i - 1;
+
+// 	/* Delete the temporary variable */
+// 	lst_delone(tmp, &free);
+
+// 	return (res);
+// }
+
+// /* This function searches for environment variable and replaces it in the token. */
+// static int search_and_replace(t_token *t, int *i, t_var *env_lst, int q)
+// {
+// 	char	*new_str;
+// 	int		j;
+
+// 	/* Find the end of variable name in the token */
+// 	j = *i + 1;
+// 	while (t->value[j] != ' ' && t->value[j] != '\0' && t->value[j] != '\t' && \
+// 		t->value[j] != '\"' && t->value[j] != '\'' && t->value[j] != '/' \
+// 		&& t->value[j] != '$' && t->value[j] != '=')
+// 		j++;
+
+// 	/* Copy the variable name from the token */
+// 	new_str = ft_substr(t->value, *i + 1, j - *i - 1);
+
+// 	/* Search for the variable in the environment list */
+// 	while (env_lst != 0)
+// 	{
+// 		if (ft_strncmp(env_lst->name, new_str, ft_strlen(new_str) + 1) == 0)
+// 			break;
+// 		env_lst = env_lst->next;
+// 	}
+
+// 	/* Handle the case when variable name is empty */
+// 	if (new_str[0] == '\0')
+// 	{
+// 		free(new_str);
+// 		return (0);
+// 	}
+
+// 	free(new_str);
+
+// 	/* If the variable is found, replace it in the token; otherwise, handle the not found case */
+// 	return (env_lst != 0) ? replace_token(t, *i, j, env_lst) : handle_not_found(t, i, j, q);
+// }
+
+// /* This function performs parameter expansion on the tokens. */
+// void parameter_expansion(t_token *tokens, t_var *env_lst)
+// {
+// 	int i = -1;
+
+// 	while (tokens->value[++i] != '\0')
+// 	{
+// 		if (tokens->value[i] == '\'')
+// 		{
+// 			i++;
+// 			while (tokens->value[i] != '\'' && tokens->value[i] != '\0')
+// 				i++;
+// 		}
+// 		else if (tokens->value[i] == '\"')
+// 		{
+// 			while (tokens->value[++i] != '\"')
+// 				if (tokens->value[i] == '$')
+// 					search_and_replace(tokens, &i, env_lst, 1);
+// 		}
+// 		else if (tokens->value[i] == '$')
+// 			search_and_replace(tokens, &i, env_lst, 0);
+// 	}
+// }
