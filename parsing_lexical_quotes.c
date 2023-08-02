@@ -3,22 +3,27 @@
 int	is_valid_quote_token(t_token *tokens)
 {
 	int i;
-	char start_quote_lo;
+	char c;
 	t_token	*token;
 
 	token = tokens;
 	while (token)
 	{
+		if (!token->quote)
+		{
+			token = token->next;
+			continue ;
+		}
 		i = 0;
-		start_quote_lo = token->value[i];
-		if (start_quote_lo != '\'' && start_quote_lo != '\"')
+		c = token->value[i];
+		if (c != '\'' && c != '\"')
 			return (0);
 		while (token->value[++i])
 		{
-			if (token->value[i] == start_quote_lo && token->value[i + 1] != '\0')
+			if (token->value[i] == c && token->value[i + 1] != '\0')
 				return (0);
 		}
-		if (token->value[i - 1] != start_quote_lo)
+		if (token->value[i - 1] != c)
 			return (0);
 		token = token->next;
 	}
@@ -37,18 +42,23 @@ int insert_quotes_location(t_token *tokens)
 {
 	int	i;
 
-	i  = -1;
-	if (tokens != 0)
+	while (tokens)
 	{
-		while (tokens->value[++i] != '\0')
+		if (tokens->quote)
 		{
-			if (tokens->value[i] == '\'')
-				handle_quote_lo(tokens, &i, '\'');
-			else if (tokens->value[i] == '\"')
-				handle_quote_lo(tokens, &i, '\"');
-			else
-				tokens->quote_lo[i] = '0';
+			i  = 0;
+			while (tokens->value[i] != '\0')
+			{
+				if (tokens->value[i] == '\'')
+					handle_quote_lo(tokens, &i, '\'');
+				else if (tokens->value[i] == '\"')
+					handle_quote_lo(tokens, &i, '\"');
+				else
+					tokens->quote_lo[i] = '0';
+				i++;
+			}
 		}
+		tokens = tokens->next;
 	}
 	return (0);
 }

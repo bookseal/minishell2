@@ -34,7 +34,7 @@ int assign_tags(t_token **tokens)
 	token = *tokens;
 	while (token)
 	{
-		if (token->tag == NOT_DECIDE && iterate_tags(token))
+		if (token->tag == NEED_DECIDE && iterate_tags(token))
 			return (print_assign_tags_error(token));
 		token = token->next;
 	}

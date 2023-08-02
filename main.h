@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/02 17:04:15 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/02 21:54:17 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include "libft/libft.h"
 # include <stdbool.h>
 
+# define STDIN 			0
+# define STDOUT 		1
+# define STDERR 		2
+
 typedef enum s_tags {
 	NO_TAG = 0,
 	PIPE, // '|'
@@ -33,7 +37,8 @@ typedef enum s_tags {
 	REDIRECT_OUT,  // '>'
 	HEREDOC, // '<<'
 	APPEND_OUT,  // '>>'
-	NOT_DECIDE,
+	NEED_DECIDE,
+	REDIRECTION,
 } tags;
 
 typedef enum s_quotes {
@@ -89,5 +94,6 @@ int	get_len_envkey(t_token *token, int i);
 void	no_env_matched(t_token *token, int *start_i, int len_envkey, int quote);
 void	remove_quotes(t_token *tokens);
 void remove_quotes(t_token *tokens);
-
+int	syntax_analyzer(t_cmd **cmds, t_token *tokens, t_env **env_lst);
+int	print_error(t_token *token, char *msg);
 #endif

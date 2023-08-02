@@ -32,7 +32,7 @@ void	unnecessary_token_delete(t_token **tokens)
 	while (token)
 	{
 		tmp = token->next;
-		if (token->need_to_del)
+		if (token->need_to_del || !ft_strlen(token->value))
 		{
 			if (prev != NULL)
 				prev->next = tmp;

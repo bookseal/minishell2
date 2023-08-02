@@ -2,18 +2,31 @@
 
 int	g_exit_status;
 
-int	loop_readline(t_env **env_lst)
+int	null_input_exit(void)
+{
+	ft_putendl_fd("exit", STDIN);
+	return (1);
+}
+
+int	loop_prompt(t_env **env_lst)
 {
 	char	*input;
 	t_cmd	*cmds;
 
 	while (1)
 	{
-		input = readline("Minishell $ ");
+		input = readline("minishell $ ");
+		if (!input)
+			return (null_input_exit());
 		if (*input != '\0')
+		{
 			add_history(input);
-		if (parsing(input, &cmds, env_lst))
-			return (1);
+			cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+			if (!cmds)
+				return (1);
+			if (parsing(input, &cmds, env_lst))
+				return (1);
+		}
 		// TODO: execute
 		// TODO: exit_status
 		free(input);
@@ -33,21 +46,6 @@ int	set_terminal(void)
 	return (0);
 }
 
-static void	handle_sigint(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-static void	handle_sigquit(int sig)
-{
-	(void)sig;
-	rl_redisplay();
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
@@ -57,14 +55,15 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (set_terminal())
 		return (1);
-	// FIXME: signal
 	set_signal();
+	// FIXME: SHVLV
 	if (envp_to_env_lst(envp, &env_lst))
 	{
 		env_lstclear(&env_lst, &free);
 		return (1);
 	}
-	if (loop_readline(&env_lst))
+	// TODO: loop
+	if (loop_prompt(&env_lst))
 	{
 		env_lstclear(&env_lst, &free);
 		return (g_exit_status % 255);	

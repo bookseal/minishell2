@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_divide_delimiters.c                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/02 21:55:27 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/02 21:55:41 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	strs_to_tokens(t_token **token, char **strs)
@@ -11,11 +23,12 @@ int	strs_to_tokens(t_token **token, char **strs)
 	i = 0;
 	while (strs[i])
 	{
-		new = token_new(strs[i], 0, ft_strlen(strs[i]), NOT_DECIDE, NO_QUOTE);
+		new = token_new(strs[i], 0, ft_strlen(strs[i]),\
+		 (*token)->need_to_del, (*token)->quote);
 		if (!new)
 		{
 			token_clear(&new_tokens, &free);
-			return (1);	
+			return (1);
 		}
 		token_add_back(&new_tokens, new);
 		i++;
@@ -34,7 +47,7 @@ int divide_delimiters(t_token **tokens)
 	token = *tokens;
 	while (token)
 	{
-		if (token->tag == NOT_DECIDE || ft_strchr(token->value, ' '))
+		if (!token->need_to_del && (token->tag == NEED_DECIDE || ft_strchr(token->value, ' ')))
 		{
 			token->need_to_del = true;
 			strs = ft_split(token->value, ' ');

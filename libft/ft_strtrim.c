@@ -6,80 +6,40 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:19:29 by gichlee           #+#    #+#             */
-/*   Updated: 2022/12/18 14:52:00 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/02 22:12:02 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_set(char *set, char c)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (set[idx] != '\0')
-	{
-		if (set[idx] == c)
-			return (1);
-		idx++;
-	}
-	return (0);
-}
-
-static size_t	trim_from_end(char *s1, char *set)
-{
-	size_t	idx;
-
-	idx = ft_strlen(s1) - 1;
-	while (idx > 0 && s1[idx] != '\0')
-	{
-		if (is_set((char *)set, s1[idx]))
-			idx--;
-		else
-			return (idx);
-	}
-	if (idx == 0)
-		return (ft_strlen(s1));
-	return (idx);
-}
-
-static size_t	trim_from_beginning(char *s1, char *set)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (s1[idx] != '\0')
-	{
-		if (is_set((char *)set, s1[idx]))
-			idx++;
-		else
-			return (idx);
-	}
-	return (idx);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*new_str;
-	size_t	idx_begin;
-	size_t	idx_end;
+	size_t	beg;
+	size_t	end;
+	size_t	i;
+	char	*strtrim;
 
-	if (s1 == 0 || set == 0)
+	if (!s1)
 		return (0);
-	if (!ft_strlen(s1))
-	{
-		new_str = (char *)malloc(sizeof(char) * 1);
-		*new_str = '\0';
-		return (new_str);
-	}
-	idx_begin = trim_from_beginning((char *)s1, (char *)set);
-	idx_end = trim_from_end((char *)s1, (char *)set);
-	new_str = (char *)malloc(sizeof(char) * (idx_end - idx_begin + 2));
-	if (new_str == 0)
+	beg = 0;
+	while (s1[beg] != '\0' && ft_strchr(set, s1[beg]))
+		beg++;
+	end = ft_strlen(s1);
+	while (end > beg && ft_strchr(set, s1[end]))
+		end--;
+	if (beg <= end)
+		strtrim = malloc(sizeof(char) * (end - beg + 2));
+	else
+		strtrim = malloc(sizeof(char));
+	if (!strtrim)
 		return (0);
-	ft_strlcpy(new_str, &s1[idx_begin], idx_end - idx_begin + 2);
-	return (new_str);
+	i = 0;
+	while (beg <= end)
+		strtrim[i++] = s1[beg++];
+	strtrim[i] = '\0';
+	return (strtrim);
 }
+
 /*
 #include <stdio.h>
 void is_ft_strtrim_ok(void)

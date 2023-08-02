@@ -30,16 +30,21 @@ int quotes_token_mal(t_token **tokens, char *str, int *i, size_t *len)
 int delimiter_token_mal(t_token **tokens, char *str, int *i, size_t *len)
 {
 	t_token	*token;
+	tags	tag;
 	const char delimiter[7] = "|<> \n\t\0";
-
+	const char tags[4] = "|<>\0";
+	
+	tag = NO_TAG;
 	while (ft_strchr(delimiter, str[*i]) && str[*i])
 	{
+		if (ft_strchr(tags, str[*i]))
+			tag = NEED_DECIDE;
 		(*i)++;
 		(*len)++;
 	}
 	if (*len)
 	{
-		token = token_new(str, *i, *len, NOT_DECIDE, NO_QUOTE);
+		token = token_new(str, *i, *len, tag, NO_QUOTE);
 		if (!token)
 			return (1);
 		token_add_back(tokens, token);
