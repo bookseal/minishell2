@@ -6,7 +6,7 @@
 /*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/03 14:56:50 by leegichan        ###   ########.fr       */
+/*   Updated: 2023/08/03 23:41:09 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,7 @@ void remove_quotes(t_token *tokens);
 int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst);
 int	print_error(t_token *token, char *msg);
 int create_argv(t_cmd *cmd, t_token **tokens);
+int	handle_redirection(t_token **tokens, t_cmd *cmds, t_env **env_lst);
+void	unnecessary_token_delete(t_token **tokens);
 
 #endif

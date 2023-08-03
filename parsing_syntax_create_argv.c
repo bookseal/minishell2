@@ -56,22 +56,25 @@ void	tokens_to_argv(t_cmd *cmd, t_token **tokens)
 
 	i = 0;
 	tmp = *tokens;
-	prev = *tokens;
+	// prev = *tokens;
 	while (tmp != 0 && tmp->tag != PIPE)
 	{
 		if (!tmp->tag)
 		{
 			cmd->argv[i] = ft_strdup(tmp->value);
 			// FIXME: replace need to del
-			arg_del_next(tokens, &tmp, &prev);
+			tmp->need_to_del = true;
+			tmp = tmp->next;
+			// arg_del_next(tokens, &tmp, &prev);
 			i++;
 		}
 		else
 		{
-			prev = tmp;
+			// prev = tmp;
 			tmp = tmp->next;
 		}
 	}
+	unnecessary_token_delete(tokens);
 }
 
 int create_argv(t_cmd *cmd, t_token **tokens)

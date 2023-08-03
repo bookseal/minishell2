@@ -29,6 +29,7 @@ void	unnecessary_token_delete(t_token **tokens)
 	t_token *prev;
 	
 	token = *tokens;
+	prev = 0;
 	while (token)
 	{
 		tmp = token->next;
