@@ -18,7 +18,11 @@ int	iterate_tags(t_token *token)
 	else
 		return (1);
 	if (token->tag > 1)
+	{
+		if (!token->next)
+			return (1);
 		token->next->tag = REDIRECT_INFO;
+	}
 	return (0);
 }
 

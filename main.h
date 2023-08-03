@@ -6,7 +6,7 @@
 /*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/03 10:57:21 by leegichan        ###   ########.fr       */
+/*   Updated: 2023/08/03 14:56:50 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int	get_len_envkey(t_token *token, int i);
 void	no_env_matched(t_token *token, int *start_i, int len_envkey, int quote);
 void	remove_quotes(t_token *tokens);
 void remove_quotes(t_token *tokens);
-int	syntax_analyzer(t_cmd **cmds, t_token *tokens, t_env **env_lst);
+int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst);
 int	print_error(t_token *token, char *msg);
+int create_argv(t_cmd *cmd, t_token **tokens);
 
 #endif

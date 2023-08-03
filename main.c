@@ -25,7 +25,7 @@ int	loop_prompt(t_env **env_lst)
 			if (!cmds)
 				return (1);
 			if (parsing(input, &cmds, env_lst))
-				return (1);
+			continue ;
 		}
 		// TODO: execute
 		// TODO: exit_status
