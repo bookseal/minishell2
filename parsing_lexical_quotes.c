@@ -82,18 +82,22 @@ void remove_quotes(t_token *tokens)
 	int		i;
 	char	c;
 
-	i = 0;
-	c = tokens->value[i];
-	while (c)
+	while (tokens)
 	{
+		i = 0;
 		c = tokens->value[i];
-		if ((c == '\'' || c == '\"') && tokens->quote_lo[i] == '1')
+		while (c)
 		{
-			remove_char_at_index(tokens, i);
-			i--;
-			// if (tokens->tag == 'h')
-			// 	tokens->tag = 'H';
+			c = tokens->value[i];
+			if ((c == '\'' || c == '\"') && tokens->quote_lo[i] == '1')
+			{
+				remove_char_at_index(tokens, i);
+				i--;
+				// if (tokens->tag == 'h')
+				// 	tokens->tag = 'H';
+			}
+			i++;
 		}
-		i++;
+		tokens = tokens->next;
 	}
 }

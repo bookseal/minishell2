@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_lexical_divide_delimiters.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:55:27 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/02 21:55:41 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/03 09:34:05 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int divide_delimiters(t_token **tokens)
 	token = *tokens;
 	while (token)
 	{
-		if (!token->need_to_del && (token->tag == NEED_DECIDE || ft_strchr(token->value, ' ')))
+		if (!token->need_to_del && token->tag == NEED_DECIDE && ft_strchr(token->value, ' '))
 		{
 			token->need_to_del = true;
 			strs = ft_split(token->value, ' ');

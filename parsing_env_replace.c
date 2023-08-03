@@ -40,7 +40,7 @@ int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 int	handle_double_quote(t_token *token, t_env *env_lst, int *i)
 {
 	(*i)++;
-	while (token->value[*i] != '\"')
+	while (*i < ft_strlen(token->value) && token->value[*i] != '\"')
 	{
 		if (token->value[*i] == '$' && dollar_to_env(token, i, env_lst))
 			return (1);
@@ -52,28 +52,34 @@ int	handle_double_quote(t_token *token, t_env *env_lst, int *i)
 int	handle_single_quote(t_token *token, int *i)
 {
 	(*i)++;
-	while (token->value[*i] != '\'' && token->value[*i] != '\0')
+	while (*i < ft_strlen(token->value) && token->value[*i] != '\'')
 		(*i)++;
 	return (0);
 }
 
-void	replace_env(t_token *token, t_env *env_lst)
+void	replace_env(t_token *tokens, t_env *env_lst)
 {
 	int		start_i;
 	char	c;
+	char	front;
 	
-	start_i = 0;
-	c = token->value[start_i];
-	while (c)
-	{
-		// FIXME: no_env_matched
-		c = token->value[start_i];
-		if (c == '\'' && handle_single_quote(token, &start_i))
-			;
-		else if (c == '\"' && handle_double_quote(token, env_lst, &start_i))
-			no_env_matched(0, 0, 0, 1);
-		else if (c == '$' && dollar_to_env(token, &start_i, env_lst))
-			no_env_matched(0, 0, 0, 0);
-		start_i++;
+	while (tokens)
+	{	
+		start_i = 0;
+		c = tokens->value[start_i];
+		front = c;
+		while (c)
+		{
+			// FIXME: no_env_matched
+			c = tokens->value[start_i];
+			if (front == '\'' && handle_single_quote(tokens, &start_i))
+				;
+			else if (front == '\"' && handle_double_quote(tokens, env_lst, &start_i))
+				no_env_matched(0, 0, 0, 1);
+			else if (c == '$' && dollar_to_env(tokens, &start_i, env_lst))
+				no_env_matched(0, 0, 0, 0);
+			start_i++;
+		}
+		tokens = tokens->next;
 	}
 }

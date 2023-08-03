@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/02 21:54:17 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/03 10:57:21 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef enum s_tags {
 	REDIRECT_OUT,  // '>'
 	HEREDOC, // '<<'
 	APPEND_OUT,  // '>>'
+	REDIRECT_INFO,
 	NEED_DECIDE,
-	REDIRECTION,
 } tags;
 
 typedef enum s_quotes {
@@ -96,4 +96,5 @@ void	remove_quotes(t_token *tokens);
 void remove_quotes(t_token *tokens);
 int	syntax_analyzer(t_cmd **cmds, t_token *tokens, t_env **env_lst);
 int	print_error(t_token *token, char *msg);
+
 #endif
