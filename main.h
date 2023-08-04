@@ -6,7 +6,7 @@
 /*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/03 23:41:09 by leegichan        ###   ########.fr       */
+/*   Updated: 2023/08/04 11:14:51 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ typedef enum s_tags {
 	NEED_DECIDE,
 } tags;
 
+typedef enum built_in {
+	NOT_BUILT_IN = 0,
+	CD,
+} built_in;
+
 typedef enum s_quotes {
 	NO_QUOTE = 0,
 	SINGLE,
@@ -66,11 +71,15 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char			*path;
+	built_in		built_in;
 	char			**argv;
+	char			*path;
+	int				fd_in;
+	int				fd_out;
 	struct s_cmd	*next;
 } 					t_cmd;
 
+int	set_terminal(void);
 void 	set_signal(void);
 int 	envp_to_env_lst(char **envp, t_env **env_lst);
 void	env_lstclear(t_env **lst, void (*del)(void *));
@@ -99,5 +108,11 @@ int	print_error(t_token *token, char *msg);
 int create_argv(t_cmd *cmd, t_token **tokens);
 int	handle_redirection(t_token **tokens, t_cmd *cmds, t_env **env_lst);
 void	unnecessary_token_delete(t_token **tokens);
+int	handle_heredoc(t_token *token, t_cmd *cmd, t_env **env_lst);
+int	is_built_in(char *argv_0);
+char	*ft_strjoin_with_slash(char const *s1, char const *s2);
+void str_to_lowercase(char *str);
+void	strs_free(char **strs);
+int	locate_cmd(t_cmd *cmd, t_env *env_lst);
 
 #endif

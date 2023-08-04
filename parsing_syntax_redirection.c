@@ -1,66 +1,62 @@
 #include "main.h"
 
-// // Helper function for file opening
-// static int	open_file(t_command *command, int flag, int std)
-// {
-// 	int	fd = open(command->oper_value, flag, 0644);
-// 	if (command->std_out != std)
-// 		close(command->std_out);
-// 	return fd;
-// }
-
-// // Handling input redirection
-// static int	parsing_ins(t_token **tokens, t_command *command, t_var **env_lst)
-// {
-// 	if (ft_strncmp(command->oper, "<", 2) == 0)
-// 	{
-// 		command->std_in = open_file(command, O_RDONLY, 0);
-// 		if (command->std_in < 0) return (-1);
-// 	}
-// 	else if (ft_strncmp(command->oper, "<<", 3) == 0)
-// 		return heredoc(command, env_lst);
-// 	return (0);
-// }
-
-// // Handling output redirection
-// static void	parsing_out(t_command *command)
-// {
-// 	command->std_out = open_file(command, O_CREAT | O_WRONLY | O_APPEND, 1);
-// }
-
-// // Handling redirections
-// static int	parsing_redirs(t_token **tokens, t_command *command, t_token **tmp, t_var **env_lst)
-// {
-// 	command->oper_value = ft_strdup((*tokens)->value);
-// 	command->delimitor = (*tokens)->type;
-// 	*tokens = (*tokens)->next;
-// 	if (ft_strncmp(command->oper, ">", 2) == 0)
-// 		command->std_out = open_file(command, O_CREAT | O_WRONLY | O_TRUNC, 1);
-// 	else if (ft_strncmp(command->oper, ">>", 3) == 0)
-// 		parsing_out(command);
-// 	else
-// 		return parsing_ins(tokens, command, env_lst);
-// 	return (0);
-// }
-
-// Parsing operators
-int	handle_redirection(t_token **tokens, t_cmd *command, t_env **env_lst)
+int	open_file(t_token *t, t_cmd *cmd, int flag, int std)
 {
-	int	status;
+	int	fd;
 	
-	status = 0;
-	// while ((*tokens) != 0 && (*tokens)->tag != PIPE && status >= 0)
-	// {
-	// 	cmd->oper = ft_strdup((*tokens)->value);
-	// 	*tokens = (*tokens)->next;
-	// 	if (*tokens != 0 && ((*tokens)->type == 'v' || \
-	// 				(*tokens)->type == 'h' || (*tokens)->type == 'H'))
-	// 		status = parsing_redirs(tokens, command, NULL, env_lst);
-	// 	else
-	// 	{
-	// 		ft_putstr_fd("Minishell$ Syntax error: Undefined value after operator\n", 2);
-	// 		return (-2);
-	// 	}
-	// }
-	return (status);
+	t->need_to_del = true;
+	fd = open(t->value, flag, 0644);
+	if (cmd->fd_out != std)
+		close(cmd->fd_out);
+	return fd;
+}
+
+int	get_fd_in(t_token *t, t_cmd *cmd, t_env **env_lst)
+{
+	if (t->tag == REDIRECT_IN)
+	{
+		cmd->fd_in = open_file(t->next, cmd, O_RDONLY, STDIN);
+		if (cmd->fd_in < 0)
+			return (1);
+	}
+	else if (t->tag == HEREDOC)
+		return handle_heredoc(t->next, cmd, env_lst);
+	return (0);
+}
+
+static void	get_fd_out(t_token *t, t_cmd *cmd)
+{
+	cmd->fd_out = open_file(t->next, cmd, O_CREAT | O_WRONLY | O_APPEND, STDOUT);
+}
+
+static int	parsing_redirs(t_token **tokens, t_cmd *cmd, t_env **env_lst)
+{
+	t_token	*t;
+
+	t = *tokens;
+	if (t->tag == REDIRECT_OUT)
+		cmd->fd_out = open_file(t->next, cmd, O_CREAT | O_WRONLY | O_TRUNC, STDOUT);
+	else if (t->tag == APPEND_OUT)
+		get_fd_out(t, cmd);
+	else
+		return (get_fd_in(t, cmd, env_lst));
+	return (0);
+}
+
+int	handle_redirection(t_token **tokens, t_cmd *cmd, t_env **env_lst)
+{
+	int	error;
+	
+	error = 0;
+	while ((*tokens) != 0 && (*tokens)->tag != PIPE && error >= 0)
+	{
+		(*tokens)->need_to_del = true;
+		if (*tokens != 0 && (*tokens)->next->tag == REDIRECT_INFO)
+			error = parsing_redirs(tokens, cmd, env_lst);
+		else
+			return (2);
+		unnecessary_token_delete(tokens);
+	}
+
+	return (error);
 }
