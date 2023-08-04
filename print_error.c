@@ -1,5 +1,11 @@
 #include "main.h"
 
+int	null_input_exit(void)
+{
+	ft_putendl_fd("exit", STDIN);
+	return (1);
+}
+
 int	print_error(t_token *token, char *msg)
 {
 	ft_putstr_fd("minishell: syntax error ", 2);

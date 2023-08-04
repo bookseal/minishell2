@@ -28,8 +28,8 @@ char	*ft_strjoin_with_slash(char const *s1, char const *s2)
 	if (result_s == 0)
 		return (0);
 	ft_strlcpy(result_s, s1, len_s1 + 1);
-	ft_strlcat(result_s, "\\", 2);
-	ft_strlcat(result_s, s2, len_s1 + len_s2 + 1);
+	ft_strlcat(result_s, "/", len_s1 + 1 + 1);
+	ft_strlcat(result_s, s2, len_s1 + 1 + len_s2 + 1);
 	return (result_s);
 }
 

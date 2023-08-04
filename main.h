@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 17:23:05 by vismaily          #+#    #+#             */
-/*   Updated: 2023/08/04 11:14:51 by leegichan        ###   ########.fr       */
+/*   Updated: 2023/08/04 22:33:00 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # define STDIN 			0
 # define STDOUT 		1
 # define STDERR 		2
-
+# define MIN_LEVEL		1
+# define MAX_LEVEL		999
 typedef enum s_tags {
 	NO_TAG = 0,
 	PIPE, // '|'
@@ -43,7 +44,13 @@ typedef enum s_tags {
 
 typedef enum built_in {
 	NOT_BUILT_IN = 0,
-	CD,
+	ECHO_CMD,
+	CD_CMD,
+	PWD_CMD,
+	EXPORT_CMD,
+	UNSET_CMD,
+	ENV_CMD,
+	EXIT_CMD,
 } built_in;
 
 typedef enum s_quotes {
@@ -65,17 +72,18 @@ typedef struct s_token
 	tags			tag;
 	quotes			quote;
 	bool			need_to_del;
-	struct s_token	*next;
 	char			*quote_lo;
+	struct s_token	*next;
 }					t_token;
 
 typedef struct s_cmd
 {
 	built_in		built_in;
 	char			**argv;
-	char			*path;
 	int				fd_in;
 	int				fd_out;
+	int				pipe_in;
+	int				pipe_out;
 	struct s_cmd	*next;
 } 					t_cmd;
 
@@ -114,5 +122,15 @@ char	*ft_strjoin_with_slash(char const *s1, char const *s2);
 void str_to_lowercase(char *str);
 void	strs_free(char **strs);
 int	locate_cmd(t_cmd *cmd, t_env *env_lst);
+void	env_lstdelone(t_env *lst, void (*del)(void *));
+void	env_lstclear(t_env **lst, void (*del)(void *));
+t_env	*env_lstnew_malloc(char *key, char *value);
+void	env_lstadd_back(t_env **lst, t_env *new);
+int	null_input_exit(void);
+int	set_terminal(void);
+int	execute(t_cmd *cmds, t_env **env_lst);
+void	strs_free(char **strs);
+void	cmds_clear(t_cmd **cmds, void (*del)(void *));
+void	pipex(t_cmd *cmd, t_env **env_lst);
 
 #endif

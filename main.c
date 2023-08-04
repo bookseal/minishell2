@@ -2,12 +2,6 @@
 
 int	g_exit_status;
 
-int	null_input_exit(void)
-{
-	ft_putendl_fd("exit", STDIN);
-	return (1);
-}
-
 int	loop_prompt(t_env **env_lst)
 {
 	char	*input;
@@ -25,24 +19,12 @@ int	loop_prompt(t_env **env_lst)
 			if (!cmds)
 				return (1);
 			if (parsing(input, &cmds, env_lst))
-			continue ;
+				continue ;
 		}
-		// TODO: execute
-		// TODO: exit_status
+		if (execute(cmds, env_lst))
+			return (1);
 		free(input);
 	}
-	return (0);
-}
-
-int	set_terminal(void)
-{
-	struct termios term;
-
-	if (tcgetattr(STDIN_FILENO, &term))
-		return (1);
-	term.c_lflag &= ~(ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term))
-		return (1);
 	return (0);
 }
 
@@ -56,17 +38,15 @@ int	main(int argc, char **argv, char **envp)
 	if (set_terminal())
 		return (1);
 	set_signal();
-	// FIXME: SHVLV
 	if (envp_to_env_lst(envp, &env_lst))
 	{
 		env_lstclear(&env_lst, &free);
 		return (1);
 	}
-	// TODO: loop
 	if (loop_prompt(&env_lst))
 	{
 		env_lstclear(&env_lst, &free);
-		return (g_exit_status % 255);	
+		return (g_exit_status % 255);
 	}
 	env_lstclear(&env_lst, &free);
 	return (g_exit_status % 255);

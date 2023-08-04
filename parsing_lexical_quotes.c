@@ -93,8 +93,6 @@ void remove_quotes(t_token *tokens)
 			{
 				remove_char_at_index(tokens, i);
 				i--;
-				// if (tokens->tag == 'h')
-				// 	tokens->tag = 'H';
 			}
 			i++;
 		}

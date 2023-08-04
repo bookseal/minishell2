@@ -1,5 +1,17 @@
 #include "main.h"
 
+int	set_terminal(void)
+{
+	struct termios term;
+
+	if (tcgetattr(STDIN_FILENO, &term))
+		return (1);
+	term.c_lflag &= ~(ECHOCTL);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term))
+		return (1);
+	return (0);
+}
+
 void signal_handler(int signal_num) {
 	if (signal_num == SIGINT)
 	{

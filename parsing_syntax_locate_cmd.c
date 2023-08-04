@@ -29,14 +29,13 @@ char *get_path_from_cmd(t_env *env_lst, char *cmd)
 		path = ft_strjoin_with_slash(paths[i], cmd);
 		if (!access(path, F_OK | X_OK))
 		{
-			free(path);
 			strs_free(paths);
-			return (0);
+			return (path);
 		}
 		i++;
 	}
 	strs_free(paths);
-	return (path);
+	return (0);
 }
 
 int	locate_cmd(t_cmd *cmd, t_env *env_lst)
@@ -53,7 +52,7 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 	if (path)
 	{
 		free(cmd->argv[0]);
-		cmd->argv[0] = ft_strdup(path);
+		cmd->argv[0] = path;
 	}
 	else
 		return (1);

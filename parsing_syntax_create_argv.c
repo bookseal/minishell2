@@ -79,10 +79,10 @@ void	tokens_to_argv(t_cmd *cmd, t_token **tokens)
 
 int create_argv(t_cmd *cmd, t_token **tokens)
 {
-	cmd->argv = (char **)malloc(sizeof(char *) * (get_argc(*tokens) + 1));
+	cmd->argv = (char **)ft_calloc(get_argc(*tokens) + 1, sizeof(char *));
 	if (!cmd->argv)
 		return (1);
 	tokens_to_argv(cmd, tokens);
-	test_cmd_argv_print(cmd);
+	// test_cmd_argv_print(cmd);
 	return (0);
 }

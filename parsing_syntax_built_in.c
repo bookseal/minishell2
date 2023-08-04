@@ -9,7 +9,7 @@ int	is_built_in(char *argv_0)
 	while (b[i])
 	{
 		if (!ft_strncmp(argv_0, b[i], ft_strlen(b[i]) + 1))
-			return (1);
+			return (i + 1);
 		i++;
 	}
 	return (0);

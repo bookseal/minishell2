@@ -5,6 +5,7 @@ void	token_delone(t_token *lst, void (*del)(void *))
 	if (lst == 0 || del == 0)
 		return ;
 	del(lst->value);
+	del(lst->quote_lo);
 	free(lst);
 }
 
