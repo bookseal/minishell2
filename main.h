@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 13:17:26 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/05 13:17:29 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/05 15:37:53 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define STDERR 		2
 # define MIN_LEVEL		1
 # define MAX_LEVEL		999
+# define TRUE			1
+# define FALSE			0
+
 typedef enum s_tags {
 	NO_TAG = 0,
 	PIPE, // '|'
@@ -84,6 +87,8 @@ typedef struct s_cmd
 	int				fd_out;
 	int				pipe_in;
 	int				pipe_out;
+	int				fd_in_origin;
+	int				fd_out_origin;
 	struct s_cmd	*next;
 } 					t_cmd;
 
@@ -132,5 +137,16 @@ int	execute(t_cmd *cmds, t_env **env_lst);
 void	strs_free(char **strs);
 void	cmds_clear(t_cmd **cmds, void (*del)(void *));
 void	pipex(t_cmd *cmd, t_env **env_lst);
+int	run_built_in(t_cmd *cmds, t_env **env_lst);
+void dup_in_and_out(t_cmd *tmp);
+void	dup_and_close(t_cmd *cmd);
+int built_in_echo(t_cmd *cmd, t_env **env_lst);
+int	go_to_path(char *path, t_env **env_lst);
+int built_in_cd(t_cmd *cmd, t_env **env_lst);
+int built_in_pwd(t_env **env_lst);
+int built_in_export(t_cmd *cmd, t_env **env_lst);
+int	built_in_env(t_env **env_lst);
+int print_env_lst(t_env **env_lst);
+int	built_in_env(t_env **env_lst);
 
 #endif

@@ -58,6 +58,8 @@
 "files.associations": {
 	"libft.h": "c",
 	"main.h": "c",
-	"stdio.h": "c"
+	"stdio.h": "c",
+	"__string": "c",
+	"typeinfo": "c"
 }
 }
