@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 13:17:26 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/05 15:49:16 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/05 17:48:59 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ int	built_in_env(t_env **env_lst);
 int print_env_lst(t_env **env_lst);
 int	built_in_env(t_env **env_lst);
 void pipex_gichlee(t_cmd *cmds, t_env **env_lst);
+void print_argv(t_cmd *cmd, int i);
 
 #endif

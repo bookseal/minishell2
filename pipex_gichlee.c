@@ -1,7 +1,7 @@
 #include "main.h"
 
 // void	exec_cmd_0(int *fd_file, int *fd_pipe, t_av *av, char **envp)
-void	exec_cmd_0(t_cmd *cmd, char **envp, t_env **env_lst)
+void	exec_cmd_0(t_cmd *cmd, t_env **env_lst)
 {
 	t_cmd *cmd1;
 	t_cmd *cmd2;
@@ -24,12 +24,12 @@ void	exec_cmd_0(t_cmd *cmd, char **envp, t_env **env_lst)
 	if (cmd1->built_in)
 		run_built_in(cmd1, env_lst);
 	else
-		execve(cmd1->argv[0], cmd1->argv, envp);
+		execve(cmd1->argv[0], cmd1->argv, 0);
 	exit(1);
 }
 
 // void	exec_cmd_1(int *fd_file, int *fd_pipe, t_av *av, char **envp)
-void	exec_cmd_1(t_cmd *cmd, char **envp, t_env **env_lst)
+void	exec_cmd_1(t_cmd *cmd, t_env **env_lst)
 {
 	int	pid;
 	t_cmd *cmd1;
@@ -55,8 +55,17 @@ void	exec_cmd_1(t_cmd *cmd, char **envp, t_env **env_lst)
 	if (cmd2->built_in)
 		run_built_in(cmd2, env_lst);
 	else
-		execve(cmd2->argv[0], cmd2->argv, envp);
+		execve(cmd2->argv[0], cmd2->argv, 0);
 	exit(1);
+}
+
+void	exec_cmd_single(t_cmd *cmds, t_env **env_lst)
+{
+	if (cmds->built_in)
+		run_built_in(cmds, env_lst);
+	else
+		execve(cmds->argv[0], cmds->argv, 0);
+	exit(0);
 }
 
 void pipex_gichlee(t_cmd *cmds, t_env **env_lst)
@@ -64,17 +73,26 @@ void pipex_gichlee(t_cmd *cmds, t_env **env_lst)
 	int		pid;
 	char	**envp;
 
-	// envp = env_lst_to_envp(env_lst);
-	
-	envp = 0;
-	if (cmds->next)
-	{
-		pid = fork();
-		if (pid < 0)
-			printf("error");
-		else if (pid == 0)
-			exec_cmd_0(cmds, envp, env_lst);
-		else
-			exec_cmd_1(cmds, envp, env_lst);
-	}
+
+	// print_argv(cmds, 0);
+	if (cmds->built_in)
+		run_built_in(cmds, env_lst);
+	// if (cmds->next)
+	// {
+	// 	pid = fork();
+	// 	if (pid < 0)
+	// 		printf("error");
+	// 	else if (pid == 0)
+	// 		exec_cmd_0(cmds, env_lst);
+	// 	else
+	// 		exec_cmd_1(cmds, env_lst);
+	// }
+	// else
+	// {
+	// 	pid = fork();
+	// 	if (pid == 0)
+	// 		exec_cmd_single(cmds, env_lst);
+	// }
+	// waitpid(pid, NULL, WNOHANG);
+	return ;
 }

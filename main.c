@@ -20,9 +20,9 @@ int	loop_prompt(t_env **env_lst)
 				return (1);
 			if (parsing(input, &cmds, env_lst))
 				continue ;
+			if (execute(cmds, env_lst))
+				return (1);
 		}
-		if (execute(cmds, env_lst))
-			return (1);
 		free(input);
 	}
 	return (0);
@@ -49,5 +49,5 @@ int	main(int argc, char **argv, char **envp)
 		return (g_exit_status % 255);
 	}
 	env_lstclear(&env_lst, &free);
-	return (g_exit_status % 255);
+	return (0);
 }
