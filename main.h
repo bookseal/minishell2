@@ -146,7 +146,7 @@ int built_in_cd(t_cmd *cmd, t_env **env_lst);
 int built_in_pwd(t_env **env_lst);
 int built_in_export(t_cmd *cmd, t_env **env_lst);
 int	built_in_env(t_env **env_lst);
-int print_env_lst(t_env **env_lst);
+int print_env_lst(t_env **env_lst, int is_export);
 int	built_in_env(t_env **env_lst);
 void pipex_gichlee(t_cmd *cmds, t_env **env_lst);
 void print_argv(t_cmd *cmd, int i);

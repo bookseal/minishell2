@@ -1,12 +1,14 @@
 #include "main.h"
 
-int print_env_lst(t_env **env_lst)
+int print_env_lst(t_env **env_lst, int is_export)
 {
 	t_env *env;
 
+	env = *env_lst;
 	while (env)
 	{
-		ft_putstr_fd("declare -x ", 1);
+		if (is_export)
+			ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(env->key, 1);
 		ft_putstr_fd("=", 1);
 		ft_putendl_fd(env->value, 1);
@@ -15,7 +17,7 @@ int print_env_lst(t_env **env_lst)
 	return (0);
 }
 
-t_env *new_env(t_env **env_lst, char *key, char *value)
+void new_env(t_env **env_lst, char *key, char *value)
 {
 	t_env	*env;
 
@@ -37,7 +39,7 @@ t_env *new_env(t_env **env_lst, char *key, char *value)
 		env = env_lstnew_malloc(key, value);
 		env_lstadd_back(env_lst, env);
 	}
-	return (env);
+	print_env_lst(env_lst, TRUE);
 }
 
 int	is_key_name_error(char *key)
@@ -66,6 +68,7 @@ int update_env(t_cmd *cmd, int i, int *res, t_env **env_lst)
 	char	*key;
 	char	*value;
 
+	// FIXME: not working
 	if (ft_strchr(cmd->argv[i] + 1, '='))
 	{
 		delimiter = ft_strchr(cmd->argv[i], '=');
@@ -92,7 +95,7 @@ int built_in_export(t_cmd *cmd, t_env **env_lst)
 	res = 0;
 	if (!cmd->argv[1])
 	{
-		print_env_lst(env_lst);
+		print_env_lst(env_lst, TRUE);
 		return (0);
 	}
 	i = 0;
