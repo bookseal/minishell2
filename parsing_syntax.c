@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/04 21:37:12 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/05 16:31:36 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_cmd	*new_cmd_for_pipe(t_cmd *cmd, t_token **tokens)
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
 	if (pipe(fd_pipe) == -1)
 		exit(1);
-	new_cmd->pipe_in = fd_pipe[0];
-	cmd->pipe_out = fd_pipe[1];
+	new_cmd->pipe_in = fd_pipe[1];
+	cmd->pipe_out = fd_pipe[0];
 	cmd->next = new_cmd;
 	return (new_cmd);
 }
