@@ -70,7 +70,6 @@ void	replace_env(t_token *tokens, t_env *env_lst)
 		front = c;
 		while (c)
 		{
-			// FIXME: no_env_matched
 			c = tokens->value[start_i];
 			if (front == '\'' && handle_single_quote(tokens, &start_i))
 				;

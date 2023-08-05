@@ -40,7 +40,7 @@ void	token_add_back(t_token **lst, t_token *new)
 	}
 }
 
-t_token	*token_new(char *str, int i, size_t len, tags tag, char quote)
+t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote)
 {
 	t_token	*new_lst;
 	size_t	start;

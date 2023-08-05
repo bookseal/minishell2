@@ -17,6 +17,6 @@ int	run_built_in(t_cmd *cmd, t_env **env_lst)
 		return (built_in_env(env_lst));
 	// else if (cmd->built_in == EXIT_CMD)
 	// 	return (built_in_exit(cmd, env_lst));
-	return (0);
 	dup_and_close(cmd);
+	return (0);
 }

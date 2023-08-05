@@ -16,7 +16,6 @@ int quotes_token_mal(t_token **tokens, char *str, int *i, size_t *len)
 	}
 	(*len)++;
 	(*i)++;
-	// if (ft_strchr(delimiter, str[*i]) || !str[*i])
 	if (*len)
 	{
 		token = token_new(str, *i, *len, NO_TAG, quote);
@@ -31,7 +30,7 @@ int quotes_token_mal(t_token **tokens, char *str, int *i, size_t *len)
 int delimiter_token_mal(t_token **tokens, char *str, int *i, size_t *len)
 {
 	t_token	*token;
-	tags	tag;
+	t_tags	tag;
 	const char delimiter[7] = "|<> \n\t\0";
 	const char tags[4] = "|<>\0";
 	
@@ -102,7 +101,6 @@ int lexical_analyzer(t_token **tokens, char *str, t_env **env_lst)
 	len = 0;
 	while (str[i] != 0)
 	{
-		// FIXME: echo'h'
 		if (ft_strchr(quotes, str[i]) && quotes_token_mal(tokens, str, &i, &len))
 			return (1);
 		if (ft_strchr(delimiter, str[i]) && delimiter_token_mal(tokens, str, &i, &len))

@@ -29,7 +29,7 @@ int built_in_cd(t_cmd *cmd, t_env **env_lst)
 		res = get_home_str(env_lst, &path);
 	else
 		path = ft_strdup(cmd->argv[1]);
-	if (!res)
+	if (res)
 		return (res);
 	res = go_to_path(path, env_lst);
 	return (res);

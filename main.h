@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 13:17:26 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/05 17:48:59 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/05 18:32:48 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define TRUE			1
 # define FALSE			0
 
-typedef enum s_tags {
+typedef enum e_tags {
 	NO_TAG = 0,
 	PIPE, // '|'
 	REDIRECT_IN,  // '<'
@@ -43,9 +43,9 @@ typedef enum s_tags {
 	APPEND_OUT,  // '>>'
 	REDIRECT_INFO,
 	NEED_DECIDE,
-} tags;
+} t_tags;
 
-typedef enum built_in {
+typedef enum e_built_in {
 	NOT_BUILT_IN = 0,
 	ECHO_CMD,
 	CD_CMD,
@@ -54,7 +54,7 @@ typedef enum built_in {
 	UNSET_CMD,
 	ENV_CMD,
 	EXIT_CMD,
-} built_in;
+} t_built_in;
 
 typedef enum s_quotes {
 	NO_QUOTE = 0,
@@ -72,7 +72,7 @@ typedef struct s_env
 typedef struct s_token
 {
 	char			*value;
-	tags			tag;
+	t_tags			tag;
 	quotes			quote;
 	bool			need_to_del;
 	char			*quote_lo;
@@ -81,7 +81,7 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	built_in		built_in;
+	t_built_in		built_in;
 	char			**argv;
 	int				fd_in;
 	int				fd_out;
@@ -98,11 +98,11 @@ int 	envp_to_env_lst(char **envp, t_env **env_lst);
 void	env_lstclear(t_env **lst, void (*del)(void *));
 int		parsing(char *input, t_cmd **cmds, t_env **env_lst);
 int		lexical_analyzer(t_token **tokens, char *input, t_env **env_lst);
-t_token	*token_new(char *str, int i, size_t len, tags tag, char quote);
+t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote);
 void	token_add_back(t_token **lst, t_token *new);
 int	update_tokens(t_token **tokens, t_env **env_lst);
 int divide_delimiters(t_token **tokens);
-t_token	*token_new(char *str, int i, size_t len, tags tag, char quote);
+t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote);
 void	token_clear(t_token **lst, void (*del)(void *));
 int assign_tags(t_token **tokens);
 void	token_delone(t_token *lst, void (*del)(void *));
@@ -150,5 +150,7 @@ int print_env_lst(t_env **env_lst);
 int	built_in_env(t_env **env_lst);
 void pipex_gichlee(t_cmd *cmds, t_env **env_lst);
 void print_argv(t_cmd *cmd, int i);
+void	close_fd(t_cmd *cmds);
+void	waiting(void);
 
 #endif

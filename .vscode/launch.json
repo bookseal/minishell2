@@ -6,27 +6,8 @@
       "name": "Debug in Terminal",
       "program": "${workspaceFolder}/minishell",
       "args": [],
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+	  "preLaunchTask": "build"
     },
-    {
-      "name": "gcc ",
-      "type": "cppdbg",
-      "request": "launch",
-      "program": "${workspaceFolder}/minishell",
-      "args": [],
-      "stopAtEntry": false,
-      "cwd": "${fileDirname}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "lldb"
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "/Users/leegichan/Documents/minishell2",
-      "program": "/Users/leegichan/Documents/minishell2/build/Debug/outDebug"
-    }
   ]
 }
