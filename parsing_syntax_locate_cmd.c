@@ -46,7 +46,15 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 		return (0);
 	str_to_lowercase(cmd->argv[0]);
 	if (ft_strchr(cmd->argv[0], '/'))
+	{
 		path = ft_strdup(cmd->argv[0]);
+		if (access(path, F_OK | X_OK))
+		{
+			free(path);
+			print_error(0, "command not found");
+			return (1);
+		}
+	}
 	else
 		path = get_path_from_cmd(env_lst, cmd->argv[0]);
 	if (path)
@@ -55,6 +63,9 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 		cmd->argv[0] = path;
 	}
 	else
+	{
+		print_error(0, "command not found");
 		return (1);
+	}
 	return (0);
 }

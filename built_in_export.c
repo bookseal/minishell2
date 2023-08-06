@@ -1,22 +1,5 @@
 #include "main.h"
 
-int print_env_lst(t_env **env_lst, int is_export)
-{
-	t_env *env;
-
-	env = *env_lst;
-	while (env)
-	{
-		if (is_export)
-			ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(env->key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putendl_fd(env->value, 1);
-		env = env->next;
-	}
-	return (0);
-}
-
 void new_env(t_env **env_lst, char *key, char *value)
 {
 	t_env	*env;
@@ -59,18 +42,18 @@ int	is_key_name_error(char *key)
 	return (0);
 }
 
-int update_env(t_cmd *cmd, int i, int *res, t_env **env_lst)
+int update_env(char *str, int *res, t_env **env_lst)
 {
 	char	*delimiter;
 	char	*key;
 	char	*value;
 
-	if (ft_strchr(cmd->argv[i] + 1, '='))
+	delimiter = ft_strchr(str, '=');
+	if (delimiter)
 	{
-		delimiter = ft_strchr(cmd->argv[i], '=');
 		*delimiter = '\0';
-		key = ft_strdup(cmd->argv[i]);
-		value = ft_strdup(cmd->argv[i] + ft_strlen(key) + 1);
+		key = ft_strdup(str);
+		value = ft_strdup(str + ft_strlen(key) + 1);
 		if (!is_key_name_error(key))
 			new_env(env_lst, key, value);
 		free(key);
@@ -94,8 +77,11 @@ int built_in_export(t_cmd *cmd, t_env **env_lst)
 		print_env_lst(env_lst, TRUE);
 		return (0);
 	}
-	i = 0;
-	while (cmd->argv[++i] != 0)
-		update_env(cmd, i, &res, env_lst);
+	i = 1;
+	while (cmd->argv[i] != 0)
+	{
+		update_env(cmd->argv[i], &res, env_lst);
+		i++;
+	}
 	return (0);
 }

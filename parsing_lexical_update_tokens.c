@@ -59,8 +59,8 @@ int	update_tokens(t_token **tokens, t_env **env_lst)
 		print_error(0, "not matched quotes");
 		return (1);
 	}
-	insert_quotes_location(*tokens);
 	replace_env(*tokens, *env_lst);
+	insert_quotes_location(*tokens);
 	remove_quotes(*tokens);
 	return (0);
 }

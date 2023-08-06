@@ -21,6 +21,21 @@ int	value_substr_to_env_value(t_token *token, int start_i, t_env *env, int len_e
 	return (0);
 }
 
+void remove_dollar_word(t_token *token, int *del_i, char *value_substr)
+{
+	char	*new;
+	char	*old;
+	int		old_len;
+	
+	old = token->value;
+	old_len = ft_strlen(old);
+	new = ft_calloc(ft_strlen(token->value), sizeof(char));
+	ft_strlcpy(new, old, *del_i + 1);
+	ft_strlcat(new, old + *del_i + ft_strlen(value_substr) + 1, old_len);
+	free(token->value);
+	token->value = new;
+}
+
 int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 {
 	char	*value_substr;
@@ -30,8 +45,11 @@ int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 	len_envkey = get_len_envkey(token, *start_i);
 	value_substr = ft_substr(token->value, *start_i + 1, len_envkey);
 	env = get_env_value(value_substr, env_lst);
-	if (env == 0)
+	if (!env)
+	{
+		remove_dollar_word(token, start_i, value_substr);
 		return (1);
+	}
 	if (value_substr_to_env_value(token, *start_i, env, len_envkey))
 		return (1);
 	return (0);
@@ -74,9 +92,9 @@ void	replace_env(t_token *tokens, t_env *env_lst)
 			if (front == '\'' && handle_single_quote(tokens, &start_i))
 				;
 			else if (front == '\"' && handle_double_quote(tokens, env_lst, &start_i))
-				no_env_matched(0, 0, 0, 1);
+				;
 			else if (c == '$' && dollar_to_env(tokens, &start_i, env_lst))
-				no_env_matched(0, 0, 0, 0);
+				;
 			start_i++;
 		}
 		tokens = tokens->next;

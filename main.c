@@ -6,6 +6,7 @@ int	loop_prompt(t_env **env_lst)
 {
 	char	*input;
 	t_cmd	*cmds;
+	t_info	*info;
 
 	while (1)
 	{
@@ -16,11 +17,12 @@ int	loop_prompt(t_env **env_lst)
 		{
 			add_history(input);
 			cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-			if (!cmds)
+			info = ft_calloc(1, sizeof(t_info));
+			if (!cmds || !info)
 				return (1);
-			if (parsing(input, &cmds, env_lst))
+			if (parsing(input, &cmds, env_lst, info))
 				continue ;
-			if (execute(cmds, env_lst))
+			if (execute(cmds, env_lst, info))
 				return (1);
 		}
 		free(input);

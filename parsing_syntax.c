@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/05 16:31:36 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/06 19:53:41 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,29 @@ t_cmd	*new_cmd_for_pipe(t_cmd *cmd, t_token **tokens)
 	return (new_cmd);
 }
 
-int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst)
+void	make_pipe(t_info *info, int cnt)
 {
+	int	i;
+
+	i = -1;
+	info->fd = malloc(sizeof(int *) * cnt);
+	while (++i < cnt)
+		info->fd[i] = malloc(sizeof(int) * 2);
+	i = -1;
+	while (++i < cnt)
+	{
+		if (pipe(info->fd[i]) < 0)
+			exit(1);
+	}
+}
+
+int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst, t_info *info)
+{
+	int		cmd_cnt;
 	int		error;
 	t_cmd	*cmd;
 	
+	cmd_cnt = 0;
 	cmd = *cmds;
 	if (token_to_cmd(cmd, tokens, env_lst))
 		return (1);
@@ -77,9 +95,11 @@ int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst)
 		(*tokens)->need_to_del = true;
 		unnecessary_token_delete(tokens);
 		cmd = new_cmd_for_pipe(cmd, tokens);
+		cmd_cnt++;
 		if (token_to_cmd(cmd, tokens, env_lst))
 			return (1);
 	}
+	make_pipe(info, cmd_cnt);
 	// TODO: exit_status
 	return (0);
 }

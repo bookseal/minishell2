@@ -93,11 +93,17 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 } 					t_cmd;
 
+typedef struct s_info
+{
+	int		**fd;
+	int		cmd_cnt;
+}	t_info;
+
 int	set_terminal(void);
 void 	set_signal(void);
 int 	envp_to_env_lst(char **envp, t_env **env_lst);
 void	env_lstclear(t_env **lst, void (*del)(void *));
-int		parsing(char *input, t_cmd **cmds, t_env **env_lst);
+int	parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info *info);
 int		lexical_analyzer(t_token **tokens, char *input, t_env **env_lst);
 t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote);
 void	token_add_back(t_token **lst, t_token *new);
@@ -114,10 +120,9 @@ void	env_delone(t_env *lst, void (*del)(void *));
 t_env	*get_env_value(char *value_substr, t_env *env_lst);
 char	*update_quote_lo(t_token *token, t_env *env, int i, int len_envkey);
 int	get_len_envkey(t_token *token, int i);
-void	no_env_matched(t_token *token, int *start_i, int len_envkey, int quote);
 void	remove_quotes(t_token *tokens);
 void remove_quotes(t_token *tokens);
-int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst);
+int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst, t_info *info);
 int	print_error(t_token *token, char *msg);
 int create_argv(t_cmd *cmd, t_token **tokens);
 int	handle_redirection(t_token **tokens, t_cmd *cmds, t_env **env_lst);
@@ -134,10 +139,9 @@ t_env	*env_lstnew_malloc(char *key, char *value);
 void	env_lstadd_back(t_env **lst, t_env *new);
 int	null_input_exit(void);
 int	set_terminal(void);
-int	execute(t_cmd *cmds, t_env **env_lst);
+int	execute(t_cmd *cmds, t_env **env_lst, t_info *info);
 void	strs_free(char **strs);
 void	cmds_clear(t_cmd **cmds, void (*del)(void *));
-void	pipex(t_cmd *cmd, t_env **env_lst);
 int	run_built_in(t_cmd *cmds, t_env **env_lst);
 void dup_in_and_out(t_cmd *tmp);
 void	dup_and_close(t_cmd *cmd);
@@ -147,8 +151,6 @@ int built_in_cd(t_cmd *cmd, t_env **env_lst);
 int built_in_pwd(t_env **env_lst);
 int built_in_export(t_cmd *cmd, t_env **env_lst);
 int	built_in_env(t_env **env_lst);
-int print_env_lst(t_env **env_lst, int is_export);
-int	built_in_env(t_env **env_lst);
 void pipex_gichlee(t_cmd *cmds, t_env **env_lst);
 void print_argv(t_cmd *cmd, int i);
 void	close_fd(t_cmd *cmds);
@@ -156,5 +158,13 @@ void	waiting(void);
 int	is_key_name_error(char *key);
 int built_in_unset(t_cmd *cmd, t_env **env_lst);
 int built_in_exit(t_cmd *cmd, t_env **env_lst);
+int print_env_lst(t_env **env_lst, int is_export);
 
+/* pipex */
+void	make_pipe(t_info *info, int cnt);
+void	make_process(t_cmd *cmd, t_info *info, t_env **env_lst);
+void	execute_cmd(t_cmd *cmd, t_info *info, int idx);
+void	close_fds(t_info *info);
+void	pipex(t_cmd *cmd, t_env **env_lst, t_info *info);
+void	exec_built_in(t_cmd *cmd, t_env **env_lst);
 #endif

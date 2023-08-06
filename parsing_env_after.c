@@ -56,21 +56,3 @@ void	create_variable_value(t_token *tokens, int *i, int j, t_env *tmp)
 	else
 		tmp->value[0] = '\0';
 }
-
-void	no_env_matched(t_token *token, int *start_i, int len_envkey, int quote)
-{
-	t_env	*tmp;
-
-	// tmp = initialize_variable(quote);
-	// if (!tmp)
-	// 	return ;
-	// create_variable_value(token, start_i, len_envkey, tmp);
-	// res = my_replace(tokens, *i, j, tmp);
-
-	// if (!((j - *i) == 1 && (tmp->key[0] == '1' || \
-	// 		(tokens->value[j] != '\"' || tokens->value[j] != '\''))))
-	// 	*i = *i - 1;
-
-	// lst_delone(tmp, &free);
-	return ;
-}
