@@ -24,7 +24,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
-# include <stdbool.h>
 
 # define STDIN 			0
 # define STDOUT 		1
@@ -66,7 +65,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	bool			need_to_del;
+	int				need_to_del;
 	struct s_env	*next;
 }					t_env;
 
@@ -75,7 +74,7 @@ typedef struct s_token
 	char			*value;
 	t_tags			tag;
 	quotes			quote;
-	bool			need_to_del;
+	int				need_to_del;
 	char			*quote_lo;
 	struct s_token	*next;
 }					t_token;
@@ -103,7 +102,7 @@ int	set_terminal(void);
 void 	set_signal(void);
 int 	envp_to_env_lst(char **envp, t_env **env_lst);
 void	env_lstclear(t_env **lst, void (*del)(void *));
-int	parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info *info);
+int		parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info *info);
 int		lexical_analyzer(t_token **tokens, char *input, t_env **env_lst);
 t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote);
 void	token_add_back(t_token **lst, t_token *new);

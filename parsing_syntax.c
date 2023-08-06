@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/06 19:53:41 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/06 21:37:04 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst, t_info *inf
 		return (1);
 	while (*tokens && (*tokens)->tag == PIPE)
 	{
-		(*tokens)->need_to_del = true;
+		(*tokens)->need_to_del = TRUE;
 		unnecessary_token_delete(tokens);
 		cmd = new_cmd_for_pipe(cmd, tokens);
 		cmd_cnt++;

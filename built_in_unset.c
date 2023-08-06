@@ -11,7 +11,8 @@ void	unnecessary_env_delete(t_env **env_lst)
 	while (env)
 	{
 		tmp = env->next;
-		if (env->need_to_del || !ft_strlen(env->value))
+		// if (env->need_to_del || !ft_strlen(env->value))
+		if (env->need_to_del)
 		{
 			if (prev != NULL)
 				prev->next = tmp;
@@ -28,14 +29,13 @@ void	unnecessary_env_delete(t_env **env_lst)
 static void del_env(char *key, t_cmd *cmd, t_env **env_lst)
 {
 	t_env *env;
-	t_env *env2;
 
 	env = *env_lst;
 	while (env)
 	{
 		if (!ft_strncmp(key, env->key, ft_strlen(key) + 1))
 		{
-			env->need_to_del = true;
+			env->need_to_del = TRUE;
 			unnecessary_env_delete(env_lst);
 			break ;
 		}

@@ -99,7 +99,7 @@ int	handle_heredoc(t_token *token, t_cmd *cmd, t_env **env_lst)
 	int	fd_pipe[2];
 	int	i;
 
-	token->need_to_del = true;
+	token->need_to_del = TRUE;
 	i = pipe(fd_pipe);
 	if (i == -1)
 		exit(1);

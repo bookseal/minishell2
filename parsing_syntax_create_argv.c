@@ -63,7 +63,7 @@ void	tokens_to_argv(t_cmd *cmd, t_token **tokens)
 		{
 			cmd->argv[i] = ft_strdup(tmp->value);
 			// FIXME: replace need to del
-			tmp->need_to_del = true;
+			tmp->need_to_del = TRUE;
 			tmp = tmp->next;
 			// arg_del_next(tokens, &tmp, &prev);
 			i++;

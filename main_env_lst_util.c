@@ -27,7 +27,7 @@ t_env	*env_lstnew_malloc(char *key, char *value)
 {
 	t_env	*new_lst;
 
-	new_lst = (t_env *)malloc(sizeof(t_env) * 1);
+	new_lst = (t_env *)ft_calloc(1, sizeof(t_env));
 	if (new_lst == 0)
 		return (0);
 	new_lst->key = ft_strdup(key);

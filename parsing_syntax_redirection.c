@@ -4,7 +4,7 @@ int	open_file(t_token *t, t_cmd *cmd, int flag, int std)
 {
 	int	fd;
 	
-	t->need_to_del = true;
+	t->need_to_del = TRUE;
 	fd = open(t->value, flag, 0644);
 	if (cmd->fd_out != std)
 		close(cmd->fd_out);
@@ -50,7 +50,7 @@ int	handle_redirection(t_token **tokens, t_cmd *cmd, t_env **env_lst)
 	error = 0;
 	while ((*tokens) != 0 && (*tokens)->tag != PIPE && error >= 0)
 	{
-		(*tokens)->need_to_del = true;
+		(*tokens)->need_to_del = TRUE;
 		if (*tokens != 0 && (*tokens)->next->tag == REDIRECT_INFO)
 			error = parsing_redirs(tokens, cmd, env_lst);
 		else
