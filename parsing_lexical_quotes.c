@@ -1,12 +1,12 @@
 #include "main.h"
 
-int	is_valid_quote_token(t_token *tokens)
+int	is_valid_quote_token(t_token **tokens)
 {
 	int i;
 	char c;
 	t_token	*token;
 
-	token = tokens;
+	token = *tokens;
 	while (token)
 	{
 		if (!token->quote)

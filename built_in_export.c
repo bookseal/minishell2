@@ -39,7 +39,6 @@ void new_env(t_env **env_lst, char *key, char *value)
 		env = env_lstnew_malloc(key, value);
 		env_lstadd_back(env_lst, env);
 	}
-	print_env_lst(env_lst, TRUE);
 }
 
 int	is_key_name_error(char *key)
@@ -53,9 +52,7 @@ int	is_key_name_error(char *key)
 	i = 1;
 	while (key[i] != '\0')
 	{
-		if ((key[i] >= 48 && key[i] <= 57) || (key[i] == '_') || ft_isalpha(key[i]))
-			continue ;
-		else
+		if (!((key[i] >= 48 && key[i] <= 57) || (key[i] == '_') || ft_isalpha(key[i])))
 			return (print_error(0, "NOT VALID KEY"));
 		i++;
 	}
@@ -68,7 +65,6 @@ int update_env(t_cmd *cmd, int i, int *res, t_env **env_lst)
 	char	*key;
 	char	*value;
 
-	// FIXME: not working
 	if (ft_strchr(cmd->argv[i] + 1, '='))
 	{
 		delimiter = ft_strchr(cmd->argv[i], '=');

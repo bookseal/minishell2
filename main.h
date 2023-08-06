@@ -66,6 +66,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	bool			need_to_del;
 	struct s_env	*next;
 }					t_env;
 
@@ -106,7 +107,7 @@ t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote);
 void	token_clear(t_token **lst, void (*del)(void *));
 int assign_tags(t_token **tokens);
 void	token_delone(t_token *lst, void (*del)(void *));
-int	is_valid_quote_token(t_token *tokens);
+int	is_valid_quote_token(t_token **tokens);
 int insert_quotes_location(t_token *tokens);
 void	replace_env(t_token *tokens, t_env *env_lst);
 void	env_delone(t_env *lst, void (*del)(void *));
@@ -152,5 +153,8 @@ void pipex_gichlee(t_cmd *cmds, t_env **env_lst);
 void print_argv(t_cmd *cmd, int i);
 void	close_fd(t_cmd *cmds);
 void	waiting(void);
+int	is_key_name_error(char *key);
+int built_in_unset(t_cmd *cmd, t_env **env_lst);
+int built_in_exit(t_cmd *cmd, t_env **env_lst);
 
 #endif
