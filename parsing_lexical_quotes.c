@@ -18,6 +18,8 @@ int	is_valid_quote_token(t_token **tokens)
 		c = token->value[i];
 		if (c != '\'' && c != '\"')
 			return (0);
+		if (!token->value[i + 1])
+			return (0);
 		while (token->value[++i])
 		{
 			if (token->value[i] == c && token->value[i + 1] != '\0')
