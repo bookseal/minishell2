@@ -5,6 +5,8 @@ int	is_built_in(char *argv_0)
 	const char *b[8] = {"echo", "cd", "pwd", "export", "unset", "env", "exit", 0};
 	int i;
 
+	if (!argv_0)
+		return (0);
 	i = 0;
 	while (b[i])
 	{

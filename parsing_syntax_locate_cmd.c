@@ -26,7 +26,7 @@ char *get_path_from_cmd(t_env *env_lst, char *cmd)
 	paths = get_path_from_env_lst(env_lst);
 	while (paths && paths[i])
 	{
-		path = ft_strjoin_with_slash(paths[i], cmd);
+		path = ft_strjoin_with_sep(paths[i], cmd, "/");
 		if (!access(path, F_OK | X_OK))
 		{
 			strs_free(paths);

@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <string.h>
 # include <errno.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -55,16 +56,23 @@ typedef enum e_built_in {
 	EXIT_CMD,
 } t_built_in;
 
-typedef enum s_quotes {
+typedef enum e_quotes {
 	NO_QUOTE = 0,
 	SINGLE,
 	DOUBLE,
-} quotes;
+} t_quotes;
+
+typedef enum e_env_tag {
+	NO_ENV_TAG,
+	ENV_EXIT,
+	ENV_NO_VALUE,
+} t_env_tag;
 
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	t_env_tag		tag;
 	int				need_to_del;
 	struct s_env	*next;
 }					t_env;
@@ -73,7 +81,7 @@ typedef struct s_token
 {
 	char			*value;
 	t_tags			tag;
-	quotes			quote;
+	t_quotes		quote;
 	int				need_to_del;
 	char			*quote_lo;
 	struct s_token	*next;
@@ -128,7 +136,7 @@ int	handle_redirection(t_token **tokens, t_cmd *cmds, t_env **env_lst);
 void	unnecessary_token_delete(t_token **tokens);
 int	handle_heredoc(t_token *token, t_cmd *cmd, t_env **env_lst);
 int	is_built_in(char *argv_0);
-char	*ft_strjoin_with_slash(char const *s1, char const *s2);
+char	*ft_strjoin_with_sep(char const *s1, char const *s2, char *sep);
 void str_to_lowercase(char *str);
 void	strs_free(char **strs);
 int	locate_cmd(t_cmd *cmd, t_env *env_lst);
@@ -157,7 +165,6 @@ void	waiting(void);
 int	is_key_name_error(char *key);
 int built_in_unset(t_cmd *cmd, t_env **env_lst);
 int built_in_exit(t_cmd *cmd, t_env **env_lst);
-int print_env_lst(t_env **env_lst, int is_export);
 
 /* pipex */
 void	make_pipe(t_info *info, int cnt);
@@ -166,4 +173,6 @@ void	execute_cmd(t_cmd *cmd, t_info *info, int idx);
 void	close_fds(t_info *info);
 void	pipex(t_cmd *cmd, t_env **env_lst, t_info *info);
 void	exec_built_in(t_cmd *cmd, t_env **env_lst);
+void env_merge_sort(t_env** headRef);
+t_env* env_dup(t_env* head);
 #endif
