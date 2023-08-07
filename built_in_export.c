@@ -75,9 +75,11 @@ int update_env(char *str, int *res, t_env **env_lst)
 
 int print_env_lst_export(t_env **env_lst)
 {
+	t_env *new_env_lst;
 	t_env *env;
 
-	env = env_dup(*env_lst);
+	new_env_lst = env_dup(*env_lst);
+	env = new_env_lst;
 	env_merge_sort(&env);
 	while (env)
 	{
@@ -101,6 +103,7 @@ int print_env_lst_export(t_env **env_lst)
 		ft_putendl_fd("", 1);
 		env = env->next;
 	}
+	env_lstclear(&new_env_lst, &free);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/06 21:37:04 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/07 18:28:40 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 	if (error)
 	{
 		if (error == 1)
-			return (1);
+			return (update_exit_status(env_lst, 1));
 		else if (error == 2)
+		{
 			print_error(*tokens, "Invalid arguments");
+			return (update_exit_status(env_lst, 1));
+		}
 		else if (error == 3)
-			;
-		return (1);
+			return (update_exit_status(env_lst, 1));
+		return (update_exit_status(env_lst, 1));
 	}
 	cmd->built_in = is_built_in(cmd->argv[0]);
 	if (!cmd->built_in)
@@ -100,6 +103,5 @@ int	syntax_analyzer(t_cmd **cmds, t_token **tokens, t_env **env_lst, t_info *inf
 			return (1);
 	}
 	make_pipe(info, cmd_cnt);
-	// TODO: exit_status
 	return (0);
 }

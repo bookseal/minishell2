@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_syntax_locate_cmd.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/07 18:38:34 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 char **get_path_from_env_lst(t_env *env_lst)
@@ -52,7 +64,7 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 		{
 			free(path);
 			print_error(0, "command not found");
-			return (1);
+			return (update_exit_status(&env_lst, 127));
 		}
 	}
 	else
@@ -65,7 +77,7 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 	else
 	{
 		print_error(0, "command not found");
-		return (1);
+		return (update_exit_status(&env_lst, 127));
 	}
 	return (0);
 }

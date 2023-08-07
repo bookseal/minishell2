@@ -83,6 +83,5 @@ int create_argv(t_cmd *cmd, t_token **tokens)
 	if (!cmd->argv)
 		return (1);
 	tokens_to_argv(cmd, tokens);
-	// test_cmd_argv_print(cmd);
 	return (0);
 }

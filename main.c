@@ -19,15 +19,17 @@ int	loop_prompt(t_env **env_lst)
 			cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 			info = ft_calloc(1, sizeof(t_info));
 			if (!cmds || !info)
-				return (1);
+				break ;
 			if (parsing(input, &cmds, env_lst, info))
 				continue ;
-			if (execute(cmds, env_lst, info))
-				return (1);
+			execute(cmds, env_lst, info);
+			if (is_exit_status(env_lst, &g_exit_status))
+				break ;
 		}
 		free(input);
+		free(info);
 	}
-	return (0);
+	return (g_exit_status % 255);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -51,5 +53,5 @@ int	main(int argc, char **argv, char **envp)
 		return (g_exit_status % 255);
 	}
 	env_lstclear(&env_lst, &free);
-	return (0);
+	return (g_exit_status % 255);
 }

@@ -2,21 +2,21 @@
 
 void	exec_built_in(t_cmd *cmd, t_env **env_lst)
 {
-	t_cmd *cmd1;
-	t_cmd *cmd2;
-	int	fd_file[2];
-	int	fd_pipe[2];
+	// t_cmd *cmd1;
+	// t_cmd *cmd2;
+	// int	fd_file[2];
+	// int	fd_pipe[2];
 
-	cmd1 = cmd;
-	cmd2 = cmd->next;
-	fd_file[0] = cmd1->fd_in;
-	fd_pipe[0] = cmd1->pipe_out;
-	if (cmd2)
-	{
-		fd_file[1] = cmd2->fd_out;
-		fd_pipe[1] = cmd2->pipe_in;
-	}
-	run_built_in(cmd1, env_lst);
+	// cmd1 = cmd;
+	// cmd2 = cmd->next;
+	// fd_file[0] = cmd1->fd_in;
+	// fd_pipe[0] = cmd1->pipe_out;
+	// if (cmd2)
+	// {
+	// 	fd_file[1] = cmd2->fd_out;
+	// 	fd_pipe[1] = cmd2->pipe_in;
+	// }
+	run_built_in(cmd, env_lst);
 }
 
 void	exec_single_cmd(t_cmd *cmd, t_env **env_lst)

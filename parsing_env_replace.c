@@ -6,7 +6,10 @@ int	value_substr_to_env_value(t_token *token, int start_i, t_env *env, int len_e
 	char	*temp_str;
 	char	*temp_str2;
 
-	replaced_value = ft_strdup(env->value);
+	if (env->tag == ENV_EXIT)
+		replaced_value = ft_itoa(env->exit_status);
+	else
+		replaced_value = ft_strdup(env->value);
 	token->value[start_i] = '\0';
 	temp_str = ft_strjoin(token->value, replaced_value);
 	free(replaced_value);

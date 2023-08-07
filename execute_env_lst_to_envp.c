@@ -11,12 +11,14 @@ int	env_lst_to_envp(t_env *env_lst, char **envp)
 	while (env)
 	{
 		if (env->tag)
+		{
+			env = env->next;
 			continue;
+		}
 		env = env->next;
 		envp_size++;
 	}
-	envp = ft_calloc(envp_size + 1, sizeof(char *));
-
+	envp = ft_calloc(envp_size + 2, sizeof(char *));
 	env = env_lst;
 	i = 0;
 	while (i < envp_size)

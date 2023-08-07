@@ -74,6 +74,7 @@ typedef struct s_env
 	char			*value;
 	t_env_tag		tag;
 	int				need_to_del;
+	int				exit_status;
 	struct s_env	*next;
 }					t_env;
 
@@ -165,14 +166,18 @@ void	waiting(void);
 int	is_key_name_error(char *key);
 int built_in_unset(t_cmd *cmd, t_env **env_lst);
 int built_in_exit(t_cmd *cmd, t_env **env_lst);
+int	update_exit_status(t_env **env_lst, int status);
+int	is_exit_status(t_env **env_lst, int *status);
 
 /* pipex */
 void	make_pipe(t_info *info, int cnt);
 void	make_process(t_cmd *cmd, t_info *info, t_env **env_lst);
-void	execute_cmd(t_cmd *cmd, t_info *info, int idx);
+void	execute_cmd(t_cmd *cmd, t_info *info, t_env **env_lst, int idx);
 void	close_fds(t_info *info);
 void	pipex(t_cmd *cmd, t_env **env_lst, t_info *info);
 void	exec_built_in(t_cmd *cmd, t_env **env_lst);
 void env_merge_sort(t_env** headRef);
 t_env* env_dup(t_env* head);
+int	env_lst_to_envp(t_env *env_lst, char **envp);
+
 #endif

@@ -2,7 +2,7 @@
 
 int	run_built_in(t_cmd *cmd, t_env **env_lst)
 {
-	dup_in_and_out(cmd);
+	// dup_in_and_out(cmd);
 	if (cmd->built_in == ECHO_CMD)
 		return (built_in_echo(cmd, env_lst));
 	else if (cmd->built_in == CD_CMD)
@@ -17,6 +17,6 @@ int	run_built_in(t_cmd *cmd, t_env **env_lst)
 		return (built_in_unset(cmd, env_lst));
 	else if (cmd->built_in == EXIT_CMD)
 		return (built_in_exit(cmd, env_lst));
-	dup_and_close(cmd);
+	// dup_and_close(cmd);
 	return (0);
 }
