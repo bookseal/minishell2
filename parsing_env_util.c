@@ -2,10 +2,15 @@
 
 int	get_len_envkey(t_token *token, int i)
 {
+	const char delimiter[7] = "|<> \n\t\0";
+	const char quotes[3] = "\'\"\0";
 	int		j;
 	char	c;
 
 	j = i + 1;
+	c = token->value[j];
+	if (ft_strchr(delimiter, c) || ft_strchr(quotes, c))
+		return (0);
 	while (1)
 	{
 		c = token->value[j];

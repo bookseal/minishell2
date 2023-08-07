@@ -43,6 +43,8 @@ int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 	t_env	*env;
 
 	len_envkey = get_len_envkey(token, *start_i);
+	if (!len_envkey)
+		return (1);
 	value_substr = ft_substr(token->value, *start_i + 1, len_envkey);
 	env = get_env_value(value_substr, env_lst);
 	if (!env)
