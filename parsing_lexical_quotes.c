@@ -4,6 +4,7 @@ int	is_valid_quote_token(t_token **tokens)
 {
 	int i;
 	char c;
+	int		count_c;
 	t_token	*token;
 
 	token = *tokens;
@@ -16,16 +17,19 @@ int	is_valid_quote_token(t_token **tokens)
 		}
 		i = 0;
 		c = token->value[i];
-		if (c != '\'' && c != '\"')
-			return (0);
+		count_c = 1;
+		// if (c != '\'' && c != '\"')
+		// 	return (0);
 		if (!token->value[i + 1])
 			return (0);
 		while (token->value[++i])
 		{
 			if (token->value[i] == c && token->value[i + 1] != '\0')
-				return (0);
+				count_c++;
 		}
-		if (token->value[i - 1] != c)
+		// if (token->value[i - 1] != c)
+		// 	return (0);
+		if (count_c % 2 != 0)
 			return (0);
 		token = token->next;
 	}
@@ -46,8 +50,8 @@ int insert_quotes_location(t_token *tokens)
 
 	while (tokens)
 	{
-		if (tokens->quote)
-		{
+		// if (tokens->quote)
+		// {
 			i  = 0;
 			while (tokens->value[i] != '\0')
 			{
@@ -59,7 +63,7 @@ int insert_quotes_location(t_token *tokens)
 					tokens->quote_lo[i] = '0';
 				i++;
 			}
-		}
+		// }
 		tokens = tokens->next;
 	}
 	return (0);

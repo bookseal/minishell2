@@ -3,7 +3,7 @@ SRCS		= $(wildcard *.c)
 OBJS		= $(patsubst ./%.c, ./%.o, $(SRCS))
 CC			= cc
 #CFALGS		= -Wall -Wextra -Werror
-CFALGS		= -g -fsanitize=address
+#CFALGS	ilt	= -g -fsanitize=address
 LIBFT		= libft
 LINKERS		= -lft -L$(LIBFT) -lreadline -L/Users/gichlee/.brew/opt/readline/lib
 INCLUDES	= -I ./includes -I/Users/gichlee/.brew/opt/readline/include

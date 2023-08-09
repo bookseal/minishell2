@@ -40,7 +40,21 @@ void	token_add_back(t_token **lst, t_token *new)
 	}
 }
 
-t_token	*token_new(char *str, int i, size_t len, t_tags tag, char quote)
+t_token	*token_new(char *value, t_tags tag, char quote)
+{
+	t_token	*token;
+
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (!token)
+		return (0);
+	token->value = value;
+	token->tag = tag;
+	// token->quote = (char *)ft_calloc(sizeof(char), (ft_strlen(value) + 1));
+	// token->quote[sizeof(char) * ft_strlen(value)] = '\0';
+	return (token);
+}
+
+t_token	*token_new_2(char *str, int i, size_t len, t_tags tag, char quote)
 {
 	t_token	*new_lst;
 	size_t	start;

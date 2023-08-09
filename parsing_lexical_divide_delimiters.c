@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:55:27 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/06 21:36:35 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/09 22:15:21 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 int	strs_to_tokens(t_token **token, char **strs)
 {
-	int	i;
-	t_token *new_tokens;
-	t_token	*new;
-	t_token *temp;
+	// int	i;
+	// t_token *new_tokens;
+	// t_token	*new;
+	// t_token *temp;
 
-	new_tokens = 0;
-	i = 0;
-	while (strs[i])
-	{
-		new = token_new(strs[i], 0, ft_strlen(strs[i]),\
-		 (*token)->need_to_del, (*token)->quote);
-		if (!new)
-		{
-			token_clear(&new_tokens, &free);
-			return (1);
-		}
-		token_add_back(&new_tokens, new);
-		i++;
-	}
-	temp = (*token)->next;
-	token_add_back(&new_tokens, temp);
-	(*token)->next = new_tokens;
+	// new_tokens = 0;
+	// i = 0;
+	// while (strs[i])
+	// {
+	// 	new = token_new(strs[i], 0, ft_strlen(strs[i]),\
+	// 	 (*token)->need_to_del, (*token)->quote);
+	// 	if (!new)
+	// 	{
+	// 		token_clear(&new_tokens, &free);
+	// 		return (1);
+	// 	}
+	// 	token_add_back(&new_tokens, new);
+	// 	i++;
+	// }
+	// temp = (*token)->next;
+	// token_add_back(&new_tokens, temp);
+	// (*token)->next = new_tokens;
 	return (0);
 }
 
