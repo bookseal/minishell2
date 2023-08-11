@@ -99,7 +99,7 @@ void	replace_env(t_token *tokens, t_env *env_lst)
 			else if (front == '\"' && handle_double_quote(tokens, env_lst, &start_i))
 				;
 			else if (c == '$' && dollar_to_env(tokens, &start_i, env_lst))
-				;
+				start_i--;
 			start_i++;
 		}
 		tokens = tokens->next;

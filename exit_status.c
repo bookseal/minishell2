@@ -15,6 +15,7 @@ int	is_exit_status(t_env **env_lst, int *status)
 		return (1);
 	}
 	*status = env->exit_status;
+	// printf("*status = %d\n", *status);
 	return (0);
 }
 
@@ -32,5 +33,5 @@ int	update_exit_status(t_env **env_lst, int status)
 		env->tag = ENV_EXIT;
 	}
 	env->exit_status = status;
-	return (0);
+	return (1);
 }

@@ -39,8 +39,12 @@ int	is_valid_quote_token(t_token **tokens)
 static void handle_quote_lo(t_token *tokens, int *i, char c)
 {
 	tokens->quote_lo[*i] = '1';
-	while (tokens->value[++(*i)] != c)
+	(*i)++;
+	while (tokens->value[*i] != c)
+	{
 		tokens->quote_lo[*i] = '0';
+		(*i)++;
+	}
 	tokens->quote_lo[*i] = '1';
 }
 

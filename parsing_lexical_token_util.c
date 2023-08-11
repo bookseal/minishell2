@@ -49,6 +49,13 @@ t_token	*token_new(char *value, t_tags tag, char quote)
 		return (0);
 	token->value = value;
 	token->tag = tag;
+	if (quote == '\'')
+		token->quote = SINGLE;
+	else if (quote == '\"')
+		token->quote = DOUBLE;
+	else
+		token->quote = NO_QUOTE;
+	token->quote_lo = (char *)ft_calloc(ft_strlen(token->value), sizeof(char));
 	// token->quote = (char *)ft_calloc(sizeof(char), (ft_strlen(value) + 1));
 	// token->quote[sizeof(char) * ft_strlen(value)] = '\0';
 	return (token);
@@ -56,25 +63,25 @@ t_token	*token_new(char *value, t_tags tag, char quote)
 
 t_token	*token_new_2(char *str, int i, size_t len, t_tags tag, char quote)
 {
-	t_token	*new_lst;
+	t_token	*token;
 	size_t	start;
 
-	new_lst = (t_token *)ft_calloc(1, sizeof(t_token));
-	if (new_lst == 0)
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (token == 0)
 		return (0);
 	if (i < len)
 		start = 0;
 	else
 		start = i - len;
-	new_lst->value = ft_substr(str, start, len);
-	new_lst->tag = tag;
+	token->value = ft_substr(str, start, len);
+	token->tag = tag;
 	if (quote == '\'')
-		new_lst->quote = SINGLE;
+		token->quote = SINGLE;
 	else if (quote == '\"')
-		new_lst->quote = DOUBLE;
+		token->quote = DOUBLE;
 	else
-		new_lst->quote = NO_QUOTE;
-	new_lst->quote_lo = (char *)ft_calloc(ft_strlen(new_lst->value), sizeof(char));
-	new_lst->next = 0;
-	return (new_lst);
+		token->quote = NO_QUOTE;
+	token->quote_lo = (char *)ft_calloc(ft_strlen(token->value), sizeof(char));
+	token->next = 0;
+	return (token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leegichan <leegichan@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:06:47 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/07 21:34:20 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/11 20:52:29 by leegichan        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	make_process(t_cmd *cmd, t_info *info, t_env **env_lst)
 			tmp = tmp->next;
 		pid = fork();
 		if (pid < 0)
+		{
+			// FIXME: get the return value
 			exit(1);
+		}
 		if (pid == 0)
 			execute_cmd(tmp, info, env_lst, i);
 	}

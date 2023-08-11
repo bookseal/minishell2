@@ -5,6 +5,11 @@ int	iterate_tags(t_token *token)
 	char	*str;
 
 	str = token->value;
+	if (*str == '\0')
+	{
+		token->need_to_del = TRUE;
+		return (0);
+	}
 	if (!ft_strncmp(str, "|", 2))
 		token->tag = PIPE;
 	else if (!ft_strncmp(str, "<", 2))
