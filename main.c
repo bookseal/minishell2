@@ -8,6 +8,8 @@ int	loop_prompt(t_env **env_lst)
 
 	while (1)
 	{
+		
+		update_exit_status(env_lst, g_exit_status);
 		input = readline("minishell $ ");
 		if (!input)
 			return (null_input_exit());
@@ -20,13 +22,13 @@ int	loop_prompt(t_env **env_lst)
 				break ;
 			if (parsing(input, &cmds, env_lst, info))
 				continue ;
-			execute(cmds, env_lst, info);
+			g_exit_status = execute(cmds, env_lst, info);
 			if (is_exit_status(env_lst, &g_exit_status))
 				break ;
 		}
 		free(input);
 	}
-	printf("%d\n", g_exit_status % 255);
+	printf("main 31 : %d\n", g_exit_status % 255);
 	return (g_exit_status % 255);
 }
 
@@ -48,8 +50,10 @@ int	main(int argc, char **argv, char **envp)
 	if (loop_prompt(&env_lst))
 	{
 		env_lstclear(&env_lst, &free);
+		// printf("51 : %d\n", g_exit_status % 255);	
 		return (g_exit_status % 255);
 	}
 	env_lstclear(&env_lst, &free);
+	// printf("55 : %d\n", g_exit_status % 255);
 	return (g_exit_status % 255);
 }

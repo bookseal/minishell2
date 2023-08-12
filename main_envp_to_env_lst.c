@@ -73,6 +73,5 @@ int envp_to_env_lst(char **envp, t_env **env_lst)
 		env_lstadd_back(env_lst, env_node);
 		i++;
 	}
-	update_exit_status(env_lst, 0);
 	return (0);
 }

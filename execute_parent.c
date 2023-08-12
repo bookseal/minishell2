@@ -22,12 +22,14 @@ void	close_fd(t_cmd *cmds)
 void	waiting(void)
 {
 	int			exit_status;
-	// int			status_code;
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	while (wait(&exit_status) != -1 || errno != ECHILD)
+	// printf("29 g_exit = %d\n", g_exit_status);
+	// while (wait(&exit_status) != -1 || errno != ECHILD)
+	while (wait(&exit_status) != -1)
 	{
+		// printf("g_exit = %d\n", g_exit_status);
 		if (WIFSIGNALED(exit_status) != 0)
 		{
 			ft_putchar_fd('\n', 1);
@@ -36,7 +38,9 @@ void	waiting(void)
 		else if (WIFEXITED(exit_status))
 		{
 			g_exit_status = WEXITSTATUS(exit_status);
+			// printf("42 : %d\n", g_exit_status % 255);
 		}
 	}
+	// printf("43 : %d\n", g_exit_status % 255);
 	set_signal();
 }

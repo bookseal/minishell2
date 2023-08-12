@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:06:47 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 16:00:14 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 16:46:48 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	pipex(t_cmd *cmd, t_env **env_lst, t_info *info)
 		tmp = tmp->next;
 	}
 	if (cmd->built_in && info->cmd_cnt == 1 && cmd->fd_out == 1)
+	{
 		exec_built_in(cmd, env_lst);
+		// printf("execute_pipex g = %d\n", g_exit_status);
+	}
 	else
 		make_process(cmd, info, env_lst);
 }
@@ -35,6 +38,7 @@ void	make_process(t_cmd *cmd, t_info *info, t_env **env_lst)
 	int		i;
 	pid_t	pid;
 	t_cmd	*tmp;
+	int	exit_status;
 
 	i = -1;
 	tmp = cmd;
@@ -56,7 +60,9 @@ void	make_process(t_cmd *cmd, t_info *info, t_env **env_lst)
 	close_fds(info);
 	i = -1;
 	while (++i < info->cmd_cnt)
-		wait(NULL);
+		wait(&exit_status);
+	g_exit_status = WEXITSTATUS(exit_status);
+	update_exit_status(env_lst, g_exit_status);
 	// i = -1;
 	// while (++i < info->cmd_cnt - 1)
 	// 	free(info->fd[i]);
@@ -91,7 +97,8 @@ void	execute_cmd(t_cmd *cmd, t_info *info, t_env **env_lst, int idx)
 	if (cmd->built_in)
 	{
 		exec_built_in(cmd, env_lst);
-		exit(1);
+		// gichlee
+		// exit(1);
 	}
 	else
 		execve(cmd->argv[0], cmd->argv, envp);
