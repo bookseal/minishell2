@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_env_lst_to_envp.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:12:41 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:14:16 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-int	env_lst_to_envp(t_env *env_lst, char **envp)
+int	get_envp_size(t_env *env_lst)
 {
-	int	envp_size;
 	t_env	*env;
-	int	i;
-
+	int		envp_size;
+	
 	env = env_lst;
 	envp_size = 0;
 	while (env)
@@ -13,12 +24,22 @@ int	env_lst_to_envp(t_env *env_lst, char **envp)
 		if (env->tag)
 		{
 			env = env->next;
-			continue;
+			continue ;
 		}
 		env = env->next;
 		envp_size++;
 	}
-	envp = ft_calloc(envp_size + 2, sizeof(char *));
+	return (envp_size);
+}
+
+int	env_lst_to_envp(t_env *env_lst, char ***envp)
+{
+	int		envp_size;
+	t_env	*env;
+	int		i;
+
+	envp_size = get_envp_size(env_lst);
+	*envp = ft_calloc(envp_size + 2, sizeof(char **));
 	env = env_lst;
 	i = 0;
 	while (i < envp_size)
@@ -26,9 +47,9 @@ int	env_lst_to_envp(t_env *env_lst, char **envp)
 		if (env->tag)
 		{
 			env = env->next;
-			continue;
+			continue ;
 		}
-		envp[i] = ft_strjoin_with_sep(env->key, env->value, "=");
+		(*envp)[i] = ft_strjoin_with_sep(env->key, env->value, "=");
 		i++;
 		env = env->next;
 	}

@@ -6,39 +6,39 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 16:51:16 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 22:22:20 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char **get_path_from_env_lst(t_env *env_lst)
+char	**get_path_from_env_lst(t_env *env_lst)
 {
-	char **path;
+	char	**path;
 
 	while (env_lst)
 	{
 		if (!ft_strncmp(env_lst->key, "PATH", 5))
 		{
 			path = ft_split(env_lst->value, ':');
-			break;
+			break ;
 		}
 		env_lst = env_lst->next;
 	}
 	return (path);
 }
 
-char *get_path_from_cmd(t_env *env_lst, char *cmd)
+char	*get_path_from_cmd(t_env *env_lst, char *cmd_name)
 {
 	int		i;
 	char	**paths;
 	char	*path;
-	
+
 	i = 0;
 	paths = get_path_from_env_lst(env_lst);
 	while (paths && paths[i])
 	{
-		path = ft_strjoin_with_sep(paths[i], cmd, "/");
+		path = ft_strjoin_with_sep(paths[i], cmd_name, "/");
 		if (!access(path, F_OK | X_OK))
 		{
 			strs_free(paths);
@@ -52,11 +52,10 @@ char *get_path_from_cmd(t_env *env_lst, char *cmd)
 
 int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 {
-	char *path;
-	
+	char	*path;
+
 	if (!cmd->argv || !cmd->argv[0])
 		return (0);
-	str_to_lowercase(cmd->argv[0]);
 	if (ft_strchr(cmd->argv[0], '/'))
 	{
 		path = ft_strdup(cmd->argv[0]);

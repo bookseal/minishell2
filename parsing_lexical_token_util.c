@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_token_util.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:53:21 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 21:53:26 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	token_delone(t_token *lst, void (*del)(void *))
@@ -56,8 +68,6 @@ t_token	*token_new(char *value, t_tags tag, char quote)
 	else
 		token->quote = NO_QUOTE;
 	token->quote_lo = (char *)ft_calloc(ft_strlen(token->value), sizeof(char));
-	// token->quote = (char *)ft_calloc(sizeof(char), (ft_strlen(value) + 1));
-	// token->quote[sizeof(char) * ft_strlen(value)] = '\0';
 	return (token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:11:12 by gichlee           #+#    #+#             */
-/*   Updated: 2022/12/17 16:39:18 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 20:14:09 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	assign_str(char **strs, size_t *idx_strs, char *s, size_t *len)
 
 	if (*len != 0)
 	{	
-		strs[*idx_strs] = (char *)malloc(sizeof(char) * (*len + 1));
+		strs[*idx_strs] = (char *)ft_calloc((*len + 2), sizeof(char));
 		if (strs[*idx_strs] == 0)
 		{
 			free_all(strs, idx_strs);
@@ -84,7 +84,7 @@ char	**ft_split(char const *s, char c)
 	size_t	size_of_strs;
 
 	size_of_strs = get_size_of_strs((char *)s, c);
-	strs = (char **)malloc(sizeof(char *) * (size_of_strs));
+	strs = (char **)ft_calloc(size_of_strs + 1, sizeof(char *));
 	if (strs == 0)
 		return (0);
 	len_new_str = 0;

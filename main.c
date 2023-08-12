@@ -1,4 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 21:46:39 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
+
+int	init_cmds_info(char *input, t_cmd **cmds, t_info **info)
+{
+	if (*input)
+		return (1);
+	add_history(input);
+	*cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+	if (!(*cmds))
+		return (1);
+	*info = (t_info *)ft_calloc(1, sizeof(t_info));
+	if (!(*info))
+	{
+		free(*cmds);
+		return (1);
+	}
+	return (0);
+}
 
 int	loop_prompt(t_env **env_lst)
 {
@@ -8,18 +37,12 @@ int	loop_prompt(t_env **env_lst)
 
 	while (1)
 	{
-		
 		update_exit_status(env_lst, g_exit_status);
 		input = readline("minishell $ ");
 		if (!input)
 			return (null_input_exit());
-		if (*input != '\0')
+		if (init_cmds_info(input, &cmds, &info))
 		{
-			add_history(input);
-			cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-			info = ft_calloc(1, sizeof(t_info));
-			if (!cmds || !info)
-				break ;
 			if (parsing(input, &cmds, env_lst, info))
 				continue ;
 			g_exit_status = execute(cmds, env_lst, info);
@@ -28,7 +51,6 @@ int	loop_prompt(t_env **env_lst)
 		}
 		free(input);
 	}
-	// printf("main 31 : %d\n", g_exit_status % 255);
 	return (g_exit_status % 256);
 }
 
@@ -50,10 +72,8 @@ int	main(int argc, char **argv, char **envp)
 	if (loop_prompt(&env_lst))
 	{
 		env_lstclear(&env_lst, &free);
-		// printf("51 : %d\n", g_exit_status % 255);	
 		return (g_exit_status % 256);
 	}
 	env_lstclear(&env_lst, &free);
-	// printf("55 : %d\n", g_exit_status % 255);
 	return (g_exit_status % 256);
 }

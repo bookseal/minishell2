@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_syntax_create_argv.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:20:19 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:21:06 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	test_cmd_argv_print(t_cmd *cmd)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while (cmd->argv[i])
 	{
 		printf("argv[i] = %s\n", cmd->argv[i]);
@@ -17,19 +31,13 @@ int	get_argc(t_token *tokens)
 	argc = 0;
 	while (tokens != 0 && tokens->tag != PIPE)
 	{
-		if (tokens->tag) // If tmp is a redirection
-		{
-			// 다른 곳에서 redirect_info로 다룸
-			// tmp = tmp->next; // Skip the redirection token
-			// if (tmp != 0 && !tmp->tag) // If the next token is a word
-			// 	tmp->tag = ; // Change the type to variable
-		}
+		if (tokens->tag)
+			;
 		else
 			argc++;
 		tokens = tokens->next;
 	}
 	return (argc);
-
 }
 
 void	arg_del_next(t_token **tokens, t_token **tmp, t_token **prev)
@@ -56,28 +64,22 @@ void	tokens_to_argv(t_cmd *cmd, t_token **tokens)
 
 	i = 0;
 	tmp = *tokens;
-	// prev = *tokens;
 	while (tmp != 0 && tmp->tag != PIPE)
 	{
 		if (!tmp->tag)
 		{
 			cmd->argv[i] = ft_strdup(tmp->value);
-			// FIXME: replace need to del
 			tmp->need_to_del = TRUE;
 			tmp = tmp->next;
-			// arg_del_next(tokens, &tmp, &prev);
 			i++;
 		}
 		else
-		{
-			// prev = tmp;
 			tmp = tmp->next;
-		}
 	}
 	unnecessary_token_delete(tokens);
 }
 
-int create_argv(t_cmd *cmd, t_token **tokens)
+int	create_argv(t_cmd *cmd, t_token **tokens)
 {
 	cmd->argv = (char **)ft_calloc(get_argc(*tokens) + 1, sizeof(char *));
 	if (!cmd->argv)

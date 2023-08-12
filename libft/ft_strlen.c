@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 20:35:19 by gichlee           #+#    #+#             */
-/*   Updated: 2022/11/30 20:31:31 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 20:11:27 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
+	if (!s)
+		return (0);
 	len = 0;
 	while (s[len] != '\0')
 		len++;

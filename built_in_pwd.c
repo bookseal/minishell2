@@ -1,6 +1,6 @@
 #include "main.h"
 
-int get_from_env(t_env *env_lst)
+int	get_from_env(t_env *env_lst)
 {
 	while (env_lst != 0)
 	{
@@ -16,7 +16,7 @@ int get_from_env(t_env *env_lst)
 	return (0);
 }
 
-int get_pwd_str(t_env **env_lst, char **pwd)
+int	get_pwd_str(t_env **env_lst, char **pwd)
 {
 	t_env	*env;
 
@@ -26,7 +26,7 @@ int get_pwd_str(t_env **env_lst, char **pwd)
 		if (!ft_strncmp(env->key, "PWD", 4))
 		{
 			*pwd = ft_strdup(env->value);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
@@ -35,9 +35,9 @@ int get_pwd_str(t_env **env_lst, char **pwd)
 	return (0);
 }
 
-int built_in_pwd(t_env **env_lst)
+int	built_in_pwd(t_env **env_lst)
 {
-	char *pwd;
+	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)

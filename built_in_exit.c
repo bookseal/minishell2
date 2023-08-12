@@ -25,7 +25,7 @@ static char	*atoa_removed_spaces_sign(char *str, int *sign)
 	return (str);
 }
 
-int argv_to_status(const char *str)
+int	argv_to_status(const char *str)
 {
 	char				*num_str;
 	int					s;
@@ -55,10 +55,10 @@ int argv_to_status(const char *str)
 	return (0);
 }
 
-int is_valid_argv_1(t_cmd *cmd)
+int	is_valid_argv_1(t_cmd *cmd)
 {
-	int	i;
-	char c;
+	int		i;
+	char	c;
 
 	i = 0;
 	c = cmd->argv[1][i];
@@ -76,7 +76,7 @@ int is_valid_argv_1(t_cmd *cmd)
 	return (TRUE);
 }
 
-void exit_to_env_lst(t_env *env_lst)
+void	exit_to_env_lst(t_env *env_lst)
 {
 	while (env_lst->tag != ENV_EXIT)
 		env_lst = env_lst->next;
@@ -84,7 +84,6 @@ void exit_to_env_lst(t_env *env_lst)
 		free(env_lst->value);
 	env_lst->value = ft_strdup("exit");
 	env_lst->exit_status = g_exit_status;
-	// printf("env_lst->exit_status = %d\n", env_lst->exit_status);
 }
 
 int	ft_get_argc(char **argv)
@@ -99,7 +98,7 @@ int	ft_get_argc(char **argv)
 	return (i);
 }
 
-int built_in_exit(t_cmd *cmd, t_env **env_lst)
+int	built_in_exit(t_cmd *cmd, t_env **env_lst)
 {
 	int	argc;
 

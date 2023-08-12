@@ -1,35 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_syntax_heredoc.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:21:14 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:21:36 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
-
-// // Expands a line based on environment variables
-// static char	*line_expansion(char *line, t_env *env_lst)
-// {
-// 	t_token	*tmp;
-// 	char	*str;
-
-// 	// Allocate memory for a new token
-// 	tmp = (t_token *)malloc(sizeof(t_token));
-// 	if (tmp == 0)
-// 		return (0);
-// 	tmp->value = line;
-// 	tmp->type = 'w';
-	
-// 	// Allocate and initialize quote field of the token
-// 	tmp->quote = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
-// 	if (tmp->quote == 0)
-// 		return (0);
-// 	tmp->quote[ft_strlen(line)] = '\0';
-// 	tmp->quote = (char *)ft_memset(tmp->quote, '0', ft_strlen(line));
-	
-// 	// Set next token as null and perform variable expansion
-// 	tmp->next = 0;
-// 	p_expansion(tmp, env_lst);
-	
-// 	// Deallocate quote field and return expanded value
-// 	free(tmp->quote);
-// 	str = tmp->value;
-// 	free(tmp);
-// 	return (str);
-// }
 
 void	signal_handler_heredoc(int sig)
 {
@@ -51,9 +32,6 @@ void	loop_heredoc(char *end, t_cmd *cmd, t_env *env_lst, int fd)
 			break ;
 		if (ft_strncmp(line, end, ft_strlen(end) + 1) == 0)
 			break ;
-		// TODO: heredoc in quotes
-		// if (cmd->delimitor == 'h')
-		// 	line = line_expansion(line, env_lst);
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
 		free(line);
@@ -108,6 +86,5 @@ int	handle_heredoc(t_token *token, t_cmd *cmd, t_env **env_lst)
 		open_heredoc(token->value, cmd, env_lst, fd_pipe);
 	else
 		dup_heredoc(cmd, fd_pipe);
-		// return (parent_heredoc(cmd, fd_pipe));
 	return (0);
 }

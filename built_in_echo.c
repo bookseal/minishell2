@@ -1,6 +1,6 @@
 #include "main.h"
 
-int is_option_n(char *str)
+int	is_option_n(char *str)
 {
 	int	i;
 
@@ -8,22 +8,22 @@ int is_option_n(char *str)
 	if (str[i] != '-')
 		return (0);
 	i++;
-	while (str[i] != '\0') 
+	while (str[i] != '\0')
 	{
 		if (str[i++] == 'n')
 			continue ;
 		else
 			break ;
 	}
-	if (i != 0 && str[i] == '\0') 
+	if (i != 0 && str[i] == '\0')
 		return (1);
 	return (0);
 }
 
-void print_argv(t_cmd *cmd, int i)
+void	print_argv(t_cmd *cmd, int i)
 {
-	int is_first_str;
-	
+	int	is_first_str;
+
 	is_first_str = TRUE;
 	while (cmd->argv[i] != 0)
 	{
@@ -35,10 +35,10 @@ void print_argv(t_cmd *cmd, int i)
 	}
 }
 
-int built_in_echo(t_cmd *cmd, t_env **env_lst)
+int	built_in_echo(t_cmd *cmd, t_env **env_lst)
 {
-	int option_n;
-	int i;
+	int	option_n;
+	int	i;
 
 	if (cmd->argv[1] == 0)
 	{

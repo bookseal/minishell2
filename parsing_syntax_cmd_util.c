@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:11:14 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/04 22:17:24 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 22:27:27 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	cmd_delone(t_cmd *cmd, void (*del)(void *))
 {
 	if (cmd == 0 || del == 0)
 		return ;
-	
 	strs_free(cmd->argv);
 	free(cmd);
 }

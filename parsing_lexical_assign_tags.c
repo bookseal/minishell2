@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_assign_tags.C                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:51:56 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:29:21 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	iterate_tags(t_token *token)
@@ -31,9 +43,9 @@ int	iterate_tags(t_token *token)
 	return (0);
 }
 
-int assign_tags(t_token **tokens)
+int	assign_tags(t_token **tokens)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = *tokens;
 	while (token)

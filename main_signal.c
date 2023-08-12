@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_signal.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:17:31 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:17:41 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	set_terminal(void)
 {
-	struct termios term;
+	struct termios	term;
 
 	if (tcgetattr(STDIN_FILENO, &term))
 		return (1);
@@ -12,7 +24,8 @@ int	set_terminal(void)
 	return (0);
 }
 
-void signal_handler(int signal_num) {
+void	signal_handler(int signal_num)
+{
 	if (signal_num == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -24,10 +37,8 @@ void signal_handler(int signal_num) {
 		rl_redisplay();
 }
 
-void set_signal(void)
+void	set_signal(void)
 {
-	// cntl + c
 	signal(SIGINT, signal_handler);
-	// cntl + backslash
 	signal(SIGQUIT, signal_handler);
 }

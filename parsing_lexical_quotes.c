@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_quotes.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:52:22 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:15:29 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	is_valid_quote_token(t_token **tokens)
 {
-	int i;
-	char c;
+	int		i;
+	char	c;
 	int		count_c;
 	t_token	*token;
 
@@ -18,8 +30,6 @@ int	is_valid_quote_token(t_token **tokens)
 		i = 0;
 		c = token->value[i];
 		count_c = 1;
-		// if (c != '\'' && c != '\"')
-		// 	return (0);
 		if (!token->value[i + 1])
 			return (0);
 		while (token->value[++i])
@@ -27,8 +37,6 @@ int	is_valid_quote_token(t_token **tokens)
 			if (token->value[i] == c && token->value[i + 1] != '\0')
 				count_c++;
 		}
-		// if (token->value[i - 1] != c)
-		// 	return (0);
 		if (count_c % 2 != 0)
 			return (0);
 		token = token->next;
@@ -36,7 +44,7 @@ int	is_valid_quote_token(t_token **tokens)
 	return (1);
 }
 
-static void handle_quote_lo(t_token *tokens, int *i, char c)
+void	handle_quote_lo(t_token *tokens, int *i, char c)
 {
 	tokens->quote_lo[*i] = '1';
 	(*i)++;
@@ -48,32 +56,30 @@ static void handle_quote_lo(t_token *tokens, int *i, char c)
 	tokens->quote_lo[*i] = '1';
 }
 
-int insert_quotes_location(t_token *tokens)
+int	insert_quotes_location(t_token *tokens)
 {
 	int	i;
 
 	while (tokens)
 	{
-		// if (tokens->quote)
-		// {
-			i  = 0;
-			while (tokens->value[i] != '\0')
-			{
-				if (tokens->value[i] == '\'')
-					handle_quote_lo(tokens, &i, '\'');
-				else if (tokens->value[i] == '\"')
-					handle_quote_lo(tokens, &i, '\"');
-				else
-					tokens->quote_lo[i] = '0';
-				i++;
-			}
-		// }
+		i = 0;
+		while (tokens->value[i] != '\0')
+		{
+			if (tokens->value[i] == '\'')
+				handle_quote_lo(tokens, &i, '\'');
+			else if (tokens->value[i] == '\"')
+				handle_quote_lo(tokens, &i, '\"');
+			else
+				tokens->quote_lo[i] = '0';
+			i++;
+		}
 		tokens = tokens->next;
 	}
 	return (0);
 }
 
-void remove_char_at_index(t_token *tokens, int index) {
+void	remove_char_at_index(t_token *tokens, int index)
+{
 	char	*new_value;
 	char	*new_quote_lo;
 
@@ -87,7 +93,7 @@ void remove_char_at_index(t_token *tokens, int index) {
 	tokens->quote_lo = new_quote_lo;
 }
 
-void remove_quotes(t_token *tokens)
+void	remove_quotes(t_token *tokens)
 {
 	int		i;
 	char	c;

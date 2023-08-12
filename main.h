@@ -171,6 +171,8 @@ int built_in_exit(t_cmd *cmd, t_env **env_lst);
 int	update_exit_status(t_env **env_lst, int status);
 int	is_exit_status(t_env **env_lst, unsigned int *status);
 void exit_to_env_lst(t_env *env_lst);
+int	value_substr_to_env_value(t_token *token, int i, t_env *env, int len_envkey);
+void	remove_dollar_word(t_token *token, int *del_i, char *value_substr);
 
 /* pipex */
 void	make_pipe(t_info *info, int cnt);
@@ -181,7 +183,7 @@ void	pipex(t_cmd *cmd, t_env **env_lst, t_info *info);
 void	exec_built_in(t_cmd *cmd, t_env **env_lst);
 void env_merge_sort(t_env** headRef);
 t_env* env_dup(t_env* head);
-int	env_lst_to_envp(t_env *env_lst, char **envp);
+int	env_lst_to_envp(t_env *env_lst, char ***envp);
 int	openfile_error(char *msg);
 
 #endif

@@ -61,6 +61,7 @@
 	"stdio.h": "c",
 	"__string": "c",
 	"typeinfo": "c",
-	"wait.h": "c"
+	"wait.h": "c",
+	"parsing_lexical_assign_tags.C": "cpp"
 }
 }

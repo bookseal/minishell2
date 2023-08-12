@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_syntax_redirection.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:22:27 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:27:06 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	open_file(t_token *t, t_cmd *cmd, int flag, int std)
 {
 	int	fd;
-	
+
 	t->need_to_del = TRUE;
 	fd = open(t->value, flag, 0644);
-	return fd;
+	return (fd);
 }
 
 int	get_fd_in(t_token *t, t_cmd *cmd, t_env **env_lst)
@@ -18,13 +30,14 @@ int	get_fd_in(t_token *t, t_cmd *cmd, t_env **env_lst)
 			return (openfile_error(t->next->value));
 	}
 	else if (t->tag == HEREDOC)
-		return handle_heredoc(t->next, cmd, env_lst);
+		return (handle_heredoc(t->next, cmd, env_lst));
 	return (0);
 }
 
 static void	get_fd_out(t_token *t, t_cmd *cmd)
 {
-	cmd->fd_out = open_file(t->next, cmd, O_CREAT | O_WRONLY | O_APPEND, STDOUT);
+	cmd->fd_out = open_file(t->next, cmd, O_CREAT | O_WRONLY \
+	| O_APPEND, STDOUT);
 }
 
 static int	parsing_redirs(t_token **tokens, t_cmd *cmd, t_env **env_lst)
@@ -33,7 +46,8 @@ static int	parsing_redirs(t_token **tokens, t_cmd *cmd, t_env **env_lst)
 
 	t = *tokens;
 	if (t->tag == REDIRECT_OUT)
-		cmd->fd_out = open_file(t->next, cmd, O_CREAT | O_WRONLY | O_TRUNC, STDOUT);
+		cmd->fd_out = open_file(t->next, cmd, O_CREAT | O_WRONLY \
+		| O_TRUNC, STDOUT);
 	else if (t->tag == APPEND_OUT)
 		get_fd_out(t, cmd);
 	else
@@ -44,7 +58,7 @@ static int	parsing_redirs(t_token **tokens, t_cmd *cmd, t_env **env_lst)
 int	handle_redirection(t_token **tokens, t_cmd *cmd, t_env **env_lst)
 {
 	int	error;
-	
+
 	error = 0;
 	while ((*tokens) != 0 && (*tokens)->tag != PIPE && error >= 0)
 	{
@@ -55,6 +69,5 @@ int	handle_redirection(t_token **tokens, t_cmd *cmd, t_env **env_lst)
 			return (2);
 		unnecessary_token_delete(tokens);
 	}
-
 	return (error);
 }

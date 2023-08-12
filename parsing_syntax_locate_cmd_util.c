@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_syntax_locate_cmd_util.c                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:21:42 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:21:59 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	strs_free(char **strs)
@@ -33,9 +45,11 @@ char	*ft_strjoin_with_sep(char const *s1, char const *s2, char *sep)
 	return (result_s);
 }
 
-void str_to_lowercase(char *str)
+void	str_to_lowercase(char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (str[i] != '\0')
 	{
 		str[i] = ft_tolower(str[i]);

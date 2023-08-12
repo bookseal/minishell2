@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_status.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:53:43 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:04:07 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	is_exit_status(t_env **env_lst, unsigned int *status)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = *env_lst;
 	while (env && env->tag != ENV_EXIT)
@@ -15,13 +27,12 @@ int	is_exit_status(t_env **env_lst, unsigned int *status)
 		return (1);
 	}
 	*status = env->exit_status;
-	// printf("*status = %d\n", *status);
 	return (0);
 }
 
 int	update_exit_status(t_env **env_lst, int status)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = *env_lst;
 	while (env && env->tag != ENV_EXIT)
@@ -33,5 +44,5 @@ int	update_exit_status(t_env **env_lst, int status)
 		env->tag = ENV_EXIT;
 	}
 	env->exit_status = status;
-	return (1);
+	return (0);
 }

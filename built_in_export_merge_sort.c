@@ -16,12 +16,9 @@ void env_merge_sort(t_env** headRef)
 	{
 		return;
 	}
-
 	FrontBackSplit(head, &a, &b);
-
 	env_merge_sort(&a);
 	env_merge_sort(&b);
-
 	*headRef = SortedMerge(a, b);
 }
 
@@ -34,7 +31,6 @@ t_env* SortedMerge(t_env* a, t_env* b)
 		return b;
 	else if (b == NULL)
 		return a;
-
 	if (strcmp(a->key, b->key) <= 0)
 	{
 		result = a;

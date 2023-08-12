@@ -1,6 +1,6 @@
 #include "main.h"
 
-int get_home_str(t_env **env_lst, char **home_str)
+int	get_home_str(t_env **env_lst, char **home_str)
 {
 	t_env	*env;
 
@@ -10,7 +10,7 @@ int get_home_str(t_env **env_lst, char **home_str)
 		if (!ft_strncmp(env->key, "HOME", 5))
 		{
 			*home_str = ft_strdup(env->value);
-			break;
+			break ;
 		}
 		env = env->next;
 	}
@@ -19,7 +19,7 @@ int get_home_str(t_env **env_lst, char **home_str)
 	return (0);
 }
 
-int built_in_cd(t_cmd *cmd, t_env **env_lst)
+int	built_in_cd(t_cmd *cmd, t_env **env_lst)
 {
 	char	*path;
 	int		res;

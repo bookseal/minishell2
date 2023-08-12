@@ -1,28 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_env_after.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:18:37 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:29:00 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
-char	*update_quote_lo(t_token *token, t_env *env, int start_i, int len_envkey)
+char	*update_quote_lo(t_token *t, t_env *env, int start_i, int len_key)
 {
 	char	*replaced_quote;
 	char	*new_blank_quote;
 	char	*temp_str;
-	
-	new_blank_quote = ft_calloc(ft_strlen(env->value) + 1 , sizeof(char));
-	if (new_blank_quote == 0) 
+
+	new_blank_quote = ft_calloc(ft_strlen(env->value) + 1, sizeof(char));
+	if (new_blank_quote == 0)
 		return (0);
 	ft_memset(new_blank_quote, '2', ft_strlen(env->value));
-	token->quote_lo[start_i] = '\0';
-	temp_str = ft_strjoin(token->quote_lo, new_blank_quote);
+	t->quote_lo[start_i] = '\0';
+	temp_str = ft_strjoin(t->quote_lo, new_blank_quote);
 	free(new_blank_quote);
-	replaced_quote = ft_strjoin(temp_str, token->quote_lo + start_i + len_envkey + 1);
+	replaced_quote = ft_strjoin(temp_str, t->quote_lo + start_i + len_key + 1);
 	free(temp_str);
-	free(token->quote_lo);
+	free(t->quote_lo);
 	return (replaced_quote);
 }
 
 t_env	*initialize_variable(int quote)
 {
 	t_env	*tmp;
-	
+
 	tmp = (t_env *)malloc(sizeof(t_env) * 1);
 	if (!tmp)
 		return (0);

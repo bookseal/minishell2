@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_env_util.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 22:18:55 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 22:29:43 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	get_len_envkey(t_token *token, int i)
 {
-	const char delimiter[7] = "|<> \n\t\0";
-	const char quotes[3] = "\'\"\0";
-	int		j;
-	char	c;
+	const char	delimiter[7] = "|<> \n\t\0";
+	const char	quotes[3] = "\'\"\0";
+	int			j;
+	char		c;
 
 	j = i + 1;
 	c = token->value[j];
@@ -14,7 +26,7 @@ int	get_len_envkey(t_token *token, int i)
 	while (1)
 	{
 		c = token->value[j];
-		if (c == '=' || c == ' ' || c == '\0'  || c == '\t')
+		if (c == '=' || c == ' ' || c == '\0' || c == '\t')
 			break ;
 		if (c == '\'' || c == '\"' || c == '$')
 			break ;

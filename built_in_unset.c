@@ -2,16 +2,15 @@
 
 void	unnecessary_env_delete(t_env **env_lst)
 {
-	t_env *env;
-	t_env *tmp;
-	t_env *prev;
-	
+	t_env	*env;
+	t_env	*tmp;
+	t_env	*prev;
+
 	env = *env_lst;
 	prev = 0;
 	while (env)
 	{
 		tmp = env->next;
-		// if (env->need_to_del || !ft_strlen(env->value))
 		if (env->need_to_del)
 		{
 			if (prev != NULL)
@@ -26,9 +25,9 @@ void	unnecessary_env_delete(t_env **env_lst)
 	}
 }
 
-static void del_env(char *key, t_cmd *cmd, t_env **env_lst)
+void	del_env(char *key, t_cmd *cmd, t_env **env_lst)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = *env_lst;
 	while (env)
@@ -43,9 +42,9 @@ static void del_env(char *key, t_cmd *cmd, t_env **env_lst)
 	}
 }
 
-int unset_envs(t_cmd *cmd, t_env **env_lst)
+int	unset_envs(t_cmd *cmd, t_env **env_lst)
 {
-	t_env 	*env;
+	t_env	*env;
 	int		res;
 	int		i;
 	char	*key;
@@ -64,9 +63,9 @@ int unset_envs(t_cmd *cmd, t_env **env_lst)
 	return (res);
 }
 
-int built_in_unset(t_cmd *cmd, t_env **env_lst)
+int	built_in_unset(t_cmd *cmd, t_env **env_lst)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	if (!env_lst || !cmd)

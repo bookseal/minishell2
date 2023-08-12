@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_lexical_update_tokens.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 21:50:45 by gichlee           #+#    #+#             */
+/*   Updated: 2023/08/12 21:50:46 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	value_trim(t_token *token)
 {
-	char *new_value;
+	char	*new_value;
 
 	while (token)
 	{
@@ -24,10 +36,10 @@ int	update_tags(t_token **tokens)
 
 void	unnecessary_token_delete(t_token **tokens)
 {
-	t_token *token;
-	t_token *tmp;
-	t_token *prev;
-	
+	t_token	*token;
+	t_token	*tmp;
+	t_token	*prev;
+
 	token = *tokens;
 	prev = 0;
 	while (token)
