@@ -29,7 +29,7 @@ int	loop_prompt(t_env **env_lst)
 		free(input);
 	}
 	// printf("main 31 : %d\n", g_exit_status % 255);
-	return (g_exit_status % 255);
+	return (g_exit_status % 256);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -51,9 +51,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		env_lstclear(&env_lst, &free);
 		// printf("51 : %d\n", g_exit_status % 255);	
-		return (g_exit_status % 255);
+		return (g_exit_status % 256);
 	}
 	env_lstclear(&env_lst, &free);
 	// printf("55 : %d\n", g_exit_status % 255);
-	return (g_exit_status % 255);
+	return (g_exit_status % 256);
 }

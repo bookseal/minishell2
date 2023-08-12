@@ -34,7 +34,7 @@
 # define TRUE			1
 # define FALSE			0
 
-int	g_exit_status;
+unsigned int	g_exit_status;
 
 typedef enum e_tags {
 	NO_TAG = 0,
@@ -169,7 +169,8 @@ int	is_key_name_error(char *key);
 int built_in_unset(t_cmd *cmd, t_env **env_lst);
 int built_in_exit(t_cmd *cmd, t_env **env_lst);
 int	update_exit_status(t_env **env_lst, int status);
-int	is_exit_status(t_env **env_lst, int *status);
+int	is_exit_status(t_env **env_lst, unsigned int *status);
+void exit_to_env_lst(t_env *env_lst);
 
 /* pipex */
 void	make_pipe(t_info *info, int cnt);

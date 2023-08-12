@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 16:06:23 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 16:51:16 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 		{
 			free(path);
 			print_error(0, "command not found");
-			return (update_exit_status(&env_lst, 127));
+			g_exit_status = 127;
+			return (update_exit_status(&env_lst, g_exit_status));
 		}
 	}
 	else
@@ -78,7 +79,8 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 	else
 	{
 		print_error(0, "command not found");
-		return (update_exit_status(&env_lst, 127));
+		g_exit_status = 127;
+		return (update_exit_status(&env_lst, g_exit_status));
 	}
 	return (0);
 }

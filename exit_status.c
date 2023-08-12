@@ -1,6 +1,6 @@
 #include "main.h"
 
-int	is_exit_status(t_env **env_lst, int *status)
+int	is_exit_status(t_env **env_lst, unsigned int *status)
 {
 	t_env *env;
 
