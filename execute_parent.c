@@ -22,7 +22,7 @@ void	close_fd(t_cmd *cmds)
 void	waiting(void)
 {
 	int			exit_status;
-	int			status_code;
+	// int			status_code;
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
@@ -31,11 +31,11 @@ void	waiting(void)
 		if (WIFSIGNALED(exit_status) != 0)
 		{
 			ft_putchar_fd('\n', 1);
-			status_code = WTERMSIG(exit_status) + 128;
+			g_exit_status = WTERMSIG(exit_status) + 128;
 		}
 		else if (WIFEXITED(exit_status))
 		{
-			status_code = WEXITSTATUS(exit_status);
+			g_exit_status = WEXITSTATUS(exit_status);
 		}
 	}
 	set_signal();

@@ -6,8 +6,6 @@ int	open_file(t_token *t, t_cmd *cmd, int flag, int std)
 	
 	t->need_to_del = TRUE;
 	fd = open(t->value, flag, 0644);
-	if (cmd->fd_out != std)
-		close(cmd->fd_out);
 	return fd;
 }
 
@@ -17,7 +15,7 @@ int	get_fd_in(t_token *t, t_cmd *cmd, t_env **env_lst)
 	{
 		cmd->fd_in = open_file(t->next, cmd, O_RDONLY, STDIN);
 		if (cmd->fd_in < 0)
-			return (1);
+			return (openfile_error(t->next->value));
 	}
 	else if (t->tag == HEREDOC)
 		return handle_heredoc(t->next, cmd, env_lst);

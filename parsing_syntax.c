@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/07 18:28:40 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 15:57:33 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 		if (locate_cmd(cmd, *env_lst))
 			return (1);
 	}
+	else
+		cmd->is_cmd = 1;
 	return (error);
 }
 
@@ -59,10 +61,10 @@ t_cmd	*new_cmd_for_pipe(t_cmd *cmd, t_token **tokens)
 	int		fd_pipe[2];
 	
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
-	if (pipe(fd_pipe) == -1)
-		exit(1);
-	new_cmd->pipe_in = fd_pipe[1];
-	cmd->pipe_out = fd_pipe[0];
+	// if (pipe(fd_pipe) == -1)
+	// 	exit(1);
+	// new_cmd->pipe_in = fd_pipe[1];
+	// cmd->pipe_out = fd_pipe[0];
 	cmd->next = new_cmd;
 	return (new_cmd);
 }

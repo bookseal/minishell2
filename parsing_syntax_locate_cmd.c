@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/07 18:38:34 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 16:06:23 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 	{
 		free(cmd->argv[0]);
 		cmd->argv[0] = path;
+		cmd->is_cmd = 1;
 	}
 	else
 	{

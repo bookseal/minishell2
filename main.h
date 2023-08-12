@@ -34,6 +34,8 @@
 # define TRUE			1
 # define FALSE			0
 
+int	g_exit_status;
+
 typedef enum e_tags {
 	NO_TAG = 0,
 	PIPE, // '|'
@@ -91,6 +93,7 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	t_built_in		built_in;
+	int				is_cmd;
 	char			**argv;
 	int				fd_in;
 	int				fd_out;
@@ -178,5 +181,6 @@ void	exec_built_in(t_cmd *cmd, t_env **env_lst);
 void env_merge_sort(t_env** headRef);
 t_env* env_dup(t_env* head);
 int	env_lst_to_envp(t_env *env_lst, char **envp);
+int	openfile_error(char *msg);
 
 #endif

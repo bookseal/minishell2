@@ -1,7 +1,5 @@
 #include "main.h"
 
-int	g_exit_status;
-
 int	loop_prompt(t_env **env_lst)
 {
 	char	*input;

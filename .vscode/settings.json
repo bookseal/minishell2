@@ -60,6 +60,7 @@
 	"main.h": "c",
 	"stdio.h": "c",
 	"__string": "c",
-	"typeinfo": "c"
+	"typeinfo": "c",
+	"wait.h": "c"
 }
 }

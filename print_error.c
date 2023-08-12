@@ -17,3 +17,11 @@ int	print_error(t_token *token, char *msg)
 		ft_putendl_fd("", 2);
 	return (1);
 }
+
+int	openfile_error(char *msg)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putendl_fd(": No such file or directory", 2);
+	return (1);
+}
