@@ -42,7 +42,7 @@ int built_in_exit(t_cmd *cmd, t_env **env_lst)
 	}
 	// exit_status = ft_atoi(cmd->argv[1]);
 	g_exit_status = ft_atoi(cmd->argv[1]);
-	printf("built_in_exit : g_exit_status = %d\n", g_exit_status);
+	// printf("built_in_exit : g_exit_status = %d\n", g_exit_status);
 	ft_putendl_fd("exit", 1);
 	exit_to_env_lst(*env_lst, &g_exit_status);
 	return (g_exit_status);

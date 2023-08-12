@@ -28,7 +28,7 @@ int	loop_prompt(t_env **env_lst)
 		}
 		free(input);
 	}
-	printf("main 31 : %d\n", g_exit_status % 255);
+	// printf("main 31 : %d\n", g_exit_status % 255);
 	return (g_exit_status % 255);
 }
 
