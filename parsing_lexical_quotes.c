@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:52:22 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 17:32:49 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 20:29:49 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	insert_quotes_location(t_token *tokens)
 
 	while (tokens)
 	{
-		if (!tokens->quote)
+		if (tokens->quote == NO_QUOTE)
 		{
 			tokens = tokens->next;
 			continue ;
 		}
 		i = 0;
-		while (tokens->value[i] != '\0')
+		while (i < ft_strlen(tokens->value))
 		{
 			if (tokens->value[i] == '\'')
 				handle_quote_lo(tokens, &i, '\'');

@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:18:37 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 16:20:20 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/12 22:29:00 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*update_quote_lo(t_token *t, t_env *env, int start_i, int len_key)
 	char	*temp_str;
 
 	new_blank_quote = ft_calloc(ft_strlen(env->value) + 1, sizeof(char));
-	if (!new_blank_quote)
+	if (new_blank_quote == 0)
 		return (0);
 	ft_memset(new_blank_quote, '2', ft_strlen(env->value));
 	t->quote_lo[start_i] = '\0';
@@ -31,24 +31,24 @@ char	*update_quote_lo(t_token *t, t_env *env, int start_i, int len_key)
 	return (replaced_quote);
 }
 
-// t_env	*initialize_variable(int quote)
-// {
-// 	t_env	*tmp;
+t_env	*initialize_variable(int quote)
+{
+	t_env	*tmp;
 
-// 	tmp = (t_env *)malloc(sizeof(t_env) * 1);
-// 	if (!tmp)
-// 		return (0);
-// 	tmp->key = (char *)malloc(sizeof(char) * 2);
-// 	if (!tmp->key)
-// 		return (0);
-// 	if (quote == 1)
-// 		tmp->key[0] = '1';
-// 	else
-// 		tmp->key[0] = '0';
-// 	tmp->key[1] = '\0';
-// 	tmp->next = 0;
-// 	return (tmp);
-// }
+	tmp = (t_env *)malloc(sizeof(t_env) * 1);
+	if (!tmp)
+		return (0);
+	tmp->key = (char *)malloc(sizeof(char) * 2);
+	if (!tmp->key)
+		return (0);
+	if (quote == 1)
+		tmp->key[0] = '1';
+	else
+		tmp->key[0] = '0';
+	tmp->key[1] = '\0';
+	tmp->next = 0;
+	return (tmp);
+}
 
 void	create_variable_value(t_token *tokens, int *i, int j, t_env *tmp)
 {

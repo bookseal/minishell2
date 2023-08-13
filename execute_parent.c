@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_parent.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/13 19:56:21 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/08/13 19:56:22 by jiwonle2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 void	close_fd(t_cmd *cmds)
@@ -21,15 +33,12 @@ void	close_fd(t_cmd *cmds)
 
 void	waiting(void)
 {
-	int			exit_status;
+	int	exit_status;
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	// printf("29 g_exit = %d\n", g_exit_status);
-	// while (wait(&exit_status) != -1 || errno != ECHILD)
 	while (wait(&exit_status) != -1)
 	{
-		// printf("g_exit = %d\n", g_exit_status);
 		if (WIFSIGNALED(exit_status) != 0)
 		{
 			ft_putchar_fd('\n', 1);
@@ -38,9 +47,7 @@ void	waiting(void)
 		else if (WIFEXITED(exit_status))
 		{
 			g_exit_status = WEXITSTATUS(exit_status);
-			// printf("42 : %d\n", g_exit_status % 255);
 		}
 	}
-	// printf("43 : %d\n", g_exit_status % 255);
 	set_signal();
 }

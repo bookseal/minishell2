@@ -1,21 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_echo.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/13 19:42:46 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/08/13 19:55:39 by jiwonle2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	is_option_n(char *str)
 {
 	int	i;
+	int	check;
 
 	i = 0;
+	check = 0;
 	if (str[i] != '-')
 		return (0);
 	i++;
 	while (str[i] != '\0')
 	{
 		if (str[i++] == 'n')
+		{
+			check = 1;
 			continue ;
+		}
 		else
 			break ;
 	}
-	if (i != 0 && str[i] == '\0')
+	if (i != 0 && str[i] == '\0' && check)
 		return (1);
 	return (0);
 }
@@ -46,8 +63,8 @@ int	built_in_echo(t_cmd *cmd, t_env **env_lst)
 		return (0);
 	}
 	option_n = FALSE;
-	i = 1;
-	while (cmd->argv[i] != 0)
+	i = 0;
+	while (cmd->argv[++i] != 0)
 	{
 		if (is_option_n(cmd->argv[i]))
 		{
@@ -55,7 +72,6 @@ int	built_in_echo(t_cmd *cmd, t_env **env_lst)
 			option_n = TRUE;
 			break ;
 		}
-		i++;
 	}
 	if (option_n == FALSE)
 		i = 1;
