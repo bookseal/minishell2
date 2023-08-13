@@ -173,6 +173,7 @@ int	is_exit_status(t_env **env_lst, unsigned int *status);
 void exit_to_env_lst(t_env *env_lst);
 int	value_substr_to_env_value(t_token *token, int i, t_env *env, int len_envkey);
 void	remove_dollar_word(t_token *token, int *del_i, char *value_substr);
+int	is_valid_quote_token(t_token **tokens);
 
 /* pipex */
 void	make_pipe(t_info *info, int cnt);

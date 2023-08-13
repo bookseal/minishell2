@@ -6,43 +6,11 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:52:22 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:15:29 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 15:59:13 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-int	is_valid_quote_token(t_token **tokens)
-{
-	int		i;
-	char	c;
-	int		count_c;
-	t_token	*token;
-
-	token = *tokens;
-	while (token)
-	{
-		if (!token->quote)
-		{
-			token = token->next;
-			continue ;
-		}
-		i = 0;
-		c = token->value[i];
-		count_c = 1;
-		if (!token->value[i + 1])
-			return (0);
-		while (token->value[++i])
-		{
-			if (token->value[i] == c && token->value[i + 1] != '\0')
-				count_c++;
-		}
-		if (count_c % 2 != 0)
-			return (0);
-		token = token->next;
-	}
-	return (1);
-}
 
 void	handle_quote_lo(t_token *tokens, int *i, char c)
 {

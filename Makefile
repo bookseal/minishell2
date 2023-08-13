@@ -55,6 +55,7 @@ SRCS		= main.c \
 				parsing_lexical_assign_tags.c \
 				parsing_lexical_divide_delimiters.c \
 				parsing_lexical_quotes.c \
+				parsing_lexical_quotes_util.c \
 				parsing_lexical_token_util.c \
 				parsing_lexical_update_tokens.c \
 				parsing_syntax_built_in.c \

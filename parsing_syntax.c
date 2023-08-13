@@ -6,21 +6,24 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:23:34 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 15:53:04 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	test_token_print(t_token *tokens)
+int	handle_error(int error, t_token **tokens, t_env **env_lst)
 {
-	while (tokens)
+	if (error == 1)
+		return (update_exit_status(env_lst, 1));
+	else if (error == 2)
 	{
-		printf("value = %s\n", tokens->value);
-		printf("tag = %d\n", tokens->tag);
-		printf("quotes = %d\n\n", tokens->quote);
-		tokens = tokens->next;
+		print_error(*tokens, "Invalid arguments");
+		return (update_exit_status(env_lst, 1));
 	}
+	else if (error == 3)
+		return (update_exit_status(env_lst, 1));
+	return (update_exit_status(env_lst, 1));
 }
 
 int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
@@ -32,18 +35,7 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 	create_argv(cmd, tokens);
 	error = handle_redirection(tokens, cmd, env_lst);
 	if (error)
-	{
-		if (error == 1)
-			return (update_exit_status(env_lst, 1));
-		else if (error == 2)
-		{
-			print_error(*tokens, "Invalid arguments");
-			return (update_exit_status(env_lst, 1));
-		}
-		else if (error == 3)
-			return (update_exit_status(env_lst, 1));
-		return (update_exit_status(env_lst, 1));
-	}
+		return (handle_error(error, tokens, env_lst));
 	str_to_lowercase(cmd->argv[0]);
 	cmd->built_in = is_built_in(cmd->argv[0]);
 	if (!cmd->built_in)

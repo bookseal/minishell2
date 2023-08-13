@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:08:10 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:08:11 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 15:48:02 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,13 @@ t_env	*env_lstnew_malloc(char *key, char *value)
 
 void	env_lstadd_back(t_env **lst, t_env *new)
 {
-	t_env	*head;
 	t_env	*temp_lst;
 
-	head = *lst;
-	if (head == 0)
+	if (*lst == 0)
 		*lst = new;
 	else
 	{
-		temp_lst = head;
+		temp_lst = *lst;
 		while (temp_lst->next != 0)
 			temp_lst = temp_lst->next;
 		temp_lst->next = new;

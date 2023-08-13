@@ -18,6 +18,7 @@ int	envp_to_env_lst(char **envp, t_env **env_lst)
 	int		i;
 	t_env	*env_node;
 
+	*env_lst = 0;
 	i = 0;
 	while (envp[i])
 	{
