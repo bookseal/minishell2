@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:21:42 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:21:59 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 15:11:33 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	str_to_lowercase(char *str)
 {
 	int	i;
 
+	if (!str)
+		return ;
 	i = 0;
 	while (str[i] != '\0')
 	{

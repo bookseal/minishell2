@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 21:46:39 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 15:07:16 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	init_cmds_info(char *input, t_cmd **cmds, t_info **info)
 {
-	if (*input)
-		return (1);
+	if (!(*input))
+		return (0);
 	add_history(input);
 	*cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!(*cmds))
-		return (1);
+		return (0);
 	*info = (t_info *)ft_calloc(1, sizeof(t_info));
 	if (!(*info))
 	{
 		free(*cmds);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	loop_prompt(t_env **env_lst)
