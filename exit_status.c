@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:53:43 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:04:07 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 18:05:27 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	update_exit_status(t_env **env_lst, int status)
 		env_lstadd_back(env_lst, env);
 		env->tag = ENV_EXIT;
 	}
+	g_exit_status = status;
 	env->exit_status = status;
-	return (0);
+	return (status);
 }

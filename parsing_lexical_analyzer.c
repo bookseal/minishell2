@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:47:54 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 21:50:18 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 18:06:19 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,5 @@ int	lexical_analyzer(t_token **tokens, char *input, t_env **env_lst)
 		segment_start = parse_word_or_operator(input, &pos, &len);
 		store_token(tokens, &token_count, &len, segment_start);
 	}
-	update_tokens(tokens, env_lst);
-	return (0);
+	return (update_tokens(tokens, env_lst));
 }

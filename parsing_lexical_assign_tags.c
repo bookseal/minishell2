@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:51:56 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 16:24:53 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 17:54:21 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	handle_tag_next(t_token *token)
 	if (token->tag > 1)
 	{
 		if (!token->next)
-			return (1);
+			return (0);
 		token->next->tag = REDIRECT_INFO;
 	}
 	return (0);

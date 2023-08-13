@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:22:27 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:27:06 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 17:49:52 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	handle_redirection(t_token **tokens, t_cmd *cmd, t_env **env_lst)
 	while ((*tokens) != 0 && (*tokens)->tag != PIPE && error >= 0)
 	{
 		(*tokens)->need_to_del = TRUE;
-		if (*tokens != 0 && (*tokens)->next->tag == REDIRECT_INFO)
+		if ((*tokens)->next != 0 && (*tokens)->next->tag == REDIRECT_INFO)
 			error = parsing_redirs(tokens, cmd, env_lst);
 		else
 			return (2);
