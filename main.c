@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:00:48 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/13 22:00:20 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	loop_prompt(t_env **env_lst)
 	return (g_exit_status % 256);
 }
 
-void	leak(){
+void	leak(void)
+{
 	system("leaks minishell");
 }
 
@@ -62,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env	*env_lst;
 
-	//atexit(leak);
+	atexit(leak);
 	(void)argv;
 	if (argc != 1)
 		return (1);
