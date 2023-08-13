@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:53:21 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:22:13 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 20:31:27 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	token_add_back(t_token **lst, t_token *new)
 	}
 }
 
-t_token	*token_new(char *value, t_tags tag, char quote)
+t_token	*token_new(char *value, t_tags tag, t_quotes quote)
 {
 	t_token	*token;
 
@@ -61,12 +61,7 @@ t_token	*token_new(char *value, t_tags tag, char quote)
 		return (0);
 	token->value = value;
 	token->tag = tag;
-	if (quote == '\'')
-		token->quote = SINGLE;
-	else if (quote == '\"')
-		token->quote = DOUBLE;
-	else
-		token->quote = NO_QUOTE;
+	token->quote = quote;
 	token->quote_lo = (char *)ft_calloc(ft_strlen(token->value), sizeof(char));
 	ft_memset(token->quote_lo, '2', ft_strlen(token->value));
 	return (token);

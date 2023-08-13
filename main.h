@@ -116,7 +116,7 @@ int 	envp_to_env_lst(char **envp, t_env **env_lst);
 void	env_lstclear(t_env **lst, void (*del)(void *));
 int		parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info *info);
 int		lexical_analyzer(t_token **tokens, char *input, t_env **env_lst);
-t_token	*token_new(char *value, t_tags tag, char quote);
+t_token	*token_new(char *value, t_tags tag, t_quotes quote);
 void	token_add_back(t_token **lst, t_token *new);
 int	update_tokens(t_token **tokens, t_env **env_lst);
 int divide_delimiters(t_token **tokens);

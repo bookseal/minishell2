@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:47:54 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 21:50:18 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 20:33:03 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,20 @@ void	store_token(t_token **tokens, int *token_count, size_t *len, char *seg)
 	const char	special_chars[7] = "<>| \t\n\0";
 	t_token		*token;
 	char		*token_value;
+	t_quotes	quote;
 
 	if (seg && *len)
 	{
 		token_value = (char *)malloc(sizeof(char) * (*len + 1));
 		ft_strlcpy(token_value, seg, *len + 1);
+		if (token_value[0] == '\'')
+			quote = SINGLE;
+		else if (token_value[0] == '\"')
+			quote = DOUBLE;
 		if (ft_strchr(special_chars, token_value[0]))
-			token = token_new(token_value, NEED_DECIDE, 0);
+			token = token_new(token_value, NEED_DECIDE, quote);
 		else
-			token = token_new(token_value, NO_TAG, 0);
+			token = token_new(token_value, NO_TAG, quote);
 		token_add_back(tokens, token);
 		(*token_count)++;
 		*len = 0;

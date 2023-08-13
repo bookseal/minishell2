@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:58:56 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 19:59:15 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 20:36:31 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	calculate_count_c(t_token *token, char c, int *count_c, int *i)
 {
 	(*i)++;
-	while (token->value[++(*i)])
+	while (token->value[*i])
 	{
-		if (token->value[*i] == c && token->value[*i + 1] != '\0')
+		if (token->value[*i] == c)
 			(*count_c)++;
+		(*i)++;
 	}
 }
 
