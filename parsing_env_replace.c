@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:54:08 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 17:10:46 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 18:17:17 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void	replace_env(t_token *tokens, t_env *env_lst)
 	{	
 		start_i = 0;
 		c = tokens->value[start_i];
+		if (c == '$' && ft_strlen(tokens->value) == 1)
+		{
+			tokens = tokens->next;
+			continue ;
+		}
 		front = c;
 		while (start_i < ft_strlen(tokens->value))
 		{
