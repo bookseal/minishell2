@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:18:55 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:25:31 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 20:51:55 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	get_len_envkey(t_token *token, int i)
 	char		c;
 
 	j = i + 1;
+	if (j >= ft_strlen(token->value))
+		return (j - 1 - i - 1);
 	c = token->value[j];
 	if (ft_strchr(delimiter, c) || ft_strchr(quotes, c))
 		return (0);
