@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:54:08 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 21:56:26 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 17:10:46 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	replace_env(t_token *tokens, t_env *env_lst)
 		start_i = 0;
 		c = tokens->value[start_i];
 		front = c;
-		while (c)
+		while (start_i < ft_strlen(tokens->value))
 		{
 			c = tokens->value[start_i];
 			if (front == '\'' && handle_single_quote(tokens, &start_i))

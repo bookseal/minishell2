@@ -51,7 +51,7 @@ int	argv_to_status(const char *str)
 	}
 	if ((s == 1 && res[0] > 2147483647) || (s == -1 && res[0] > 2147483648))
 		return (1);
-	g_exit_status = (int)(s * res[0]);
+	g_exit_status = (int)(s * res[0] % 256);
 	return (0);
 }
 

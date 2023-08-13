@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 15:51:03 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/13 17:29:38 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,17 @@ char	*get_path_from_cmd(t_env *env_lst, char *cmd_name)
 	return (0);
 }
 
-int	full_path_access_ok(t_cmd *cmd, t_env *env_lst)
+int	full_path_access_ok(t_cmd *cmd, t_env *env_lst, char **path)
 {
-	char	*path;
-
-	path = ft_strdup(cmd->argv[0]);
-	if (access(path, F_OK | X_OK))
+	*path = ft_strdup(cmd->argv[0]);
+	if (access(*path, F_OK | X_OK))
 	{
-		free(path);
+		free(*path);
 		print_error(0, "command not found");
 		g_exit_status = 127;
 		return (update_exit_status(&env_lst, g_exit_status));
 	}
+	cmd->is_cmd = 1;
 	return (0);
 }
 
@@ -72,7 +71,7 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 	if (!cmd->argv || !cmd->argv[0])
 		return (0);
 	if (ft_strchr(cmd->argv[0], '/'))
-		return (full_path_access_ok(cmd, env_lst));
+		return (full_path_access_ok(cmd, env_lst, &path));
 	else
 		path = get_path_from_cmd(env_lst, cmd->argv[0]);
 	if (path)
