@@ -46,6 +46,7 @@ SRCS		= main.c \
 				exit_status.c \
 				main_env_lst_util.c \
 				main_envp_to_env_lst.c \
+				main_clear.c \
 				main_signal.c \
 				parsing_env_after.c \
 				parsing_env_replace.c \
