@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:50:45 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 20:09:33 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ void	value_trim(t_token *token)
 		token->value = new_value;
 		token = token->next;
 	}
-}
-
-int	update_tags(t_token **tokens)
-{
-	if (divide_delimiters(tokens))
-		return (1);
-	if (assign_tags(tokens))
-		return (1);
-	return (0);
 }
 
 void	unnecessary_token_delete(t_token **tokens)
@@ -62,7 +53,7 @@ void	unnecessary_token_delete(t_token **tokens)
 int	update_tokens(t_token **tokens, t_env **env_lst)
 {
 	value_trim(*tokens);
-	if (update_tags(tokens))
+	if (assign_tags(tokens))
 		return (1);
 	unnecessary_token_delete(tokens);
 	if (!is_valid_quote_token(tokens))

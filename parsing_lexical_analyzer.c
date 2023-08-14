@@ -6,13 +6,13 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:47:54 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:53:36 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	store_token(t_token **tokens, int *token_count, size_t *len, char *seg)
+void	store_token(t_token **tokens, size_t *len, char *seg)
 {
 	const char	special_chars[7] = "<>| \t\n\0";
 	t_token		*token;
@@ -33,7 +33,6 @@ void	store_token(t_token **tokens, int *token_count, size_t *len, char *seg)
 		else
 			token = token_new(token_value, NO_TAG, quote);
 		token_add_back(tokens, token);
-		(*token_count)++;
 		*len = 0;
 	}
 }
@@ -110,21 +109,19 @@ static char	*parse_word_or_operator(char *input, int *index, size_t *len)
 int	lexical_analyzer(t_token **tokens, char *input, t_env **env_lst)
 {
 	int		pos;
-	int		token_count;
 	size_t	len;
 	char	*segment_start;
 
 	pos = 0;
-	token_count = 0;
 	len = 0;
 	while (input[pos])
 	{
 		segment_start = parse_single_quotes(input, &pos, &len);
-		store_token(tokens, &token_count, &len, segment_start);
+		store_token(tokens, &len, segment_start);
 		segment_start = parse_double_quotes(input, &pos, &len);
-		store_token(tokens, &token_count, &len, segment_start);
+		store_token(tokens, &len, segment_start);
 		segment_start = parse_word_or_operator(input, &pos, &len);
-		store_token(tokens, &token_count, &len, segment_start);
+		store_token(tokens, &len, segment_start);
 	}
 	update_tokens(tokens, env_lst);
 	return (0);

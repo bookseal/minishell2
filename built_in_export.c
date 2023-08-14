@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:22:54 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/14 18:58:14 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/14 20:02:39 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ void	new_env(t_env **env_lst, char *key, char *value)
 {
 	t_env_tag	tag;
 	t_env		*env;
+	int			check;
 
+	check = 0;
 	tag = NO_ENV_TAG;
 	if (!value)
 	{
 		value = ft_calloc(1, sizeof(char));
 		tag = ENV_NO_VALUE;
+		check = 1;
 	}
 	env = *env_lst;
 	new_env_util(&env, key, value, tag);
@@ -31,6 +34,8 @@ void	new_env(t_env **env_lst, char *key, char *value)
 		env->tag = tag;
 		env_lstadd_back(env_lst, env);
 	}
+	if (check)
+		free(value);
 }
 
 int	is_key_name_error(char *key)

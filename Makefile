@@ -39,11 +39,12 @@ SRCS		= main.c \
 				parsing_syntax_redirection.c \
 				parsing_syntax.c \
 				parsing.c \
-				print_error.c 
-
+				print_error.c
 OBJS		= $(SRCS:%.c=%.o)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
+# delete
+CFLAGS		+= -g
 LIBFT		= libft
 LINKERS		= -lft -L$(LIBFT) -lreadline -L${HOME}/.brew/opt/readline/lib
 INCLUDES	= -I ./includes -I${HOME}/.brew/opt/readline/include

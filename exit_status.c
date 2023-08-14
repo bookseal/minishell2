@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:53:43 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 18:58:41 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:48:02 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	update_exit_status(t_env **env_lst, int status)
 	if (!env)
 	{
 		env = env_lstnew_malloc("?", "?");
-		env_lstadd_back(env_lst, env);
 		env->tag = ENV_EXIT;
+		env_lstadd_back(env_lst, env);
 	}
 	env->exit_status = status;
 	return (0);
