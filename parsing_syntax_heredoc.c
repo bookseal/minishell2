@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:21:14 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 16:09:35 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:39:46 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,8 @@ static int	dup_heredoc(t_cmd *cmd, int *fd_pipe)
 	signal(SIGINT, SIG_IGN);
 	wait(&exit_status);
 	close(fd_pipe[1]);
-	if (WIFEXITED(exit_status))
-	{
-		exit_status = WEXITSTATUS(exit_status);
-		if (exit_status == 1)
-			return (-3);
-		else
-			cmd->fd_in = dup(fd_pipe[0]);
-		close(fd_pipe[0]);
-	}
+	cmd->fd_in = dup(fd_pipe[0]);
+	close(fd_pipe[0]);
 	if (set_terminal())
 		return (1);
 	set_signal();

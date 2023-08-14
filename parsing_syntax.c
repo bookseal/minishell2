@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 16:18:08 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:40:22 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	handle_error(int error, t_token **tokens, t_env **env_lst)
 	else if (error == 3)
 		return (update_exit_status(env_lst, 3));
 	else if (error == 4)
-	{
-		// printf("error 28\n");
 		return (error);
-	}
 	return (update_exit_status(env_lst, 1));
 }
 
@@ -42,7 +39,6 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 	if (error)
 	{
 		error = handle_error(error, tokens, env_lst);
-		// printf("error 45 = %d\n", error);
 		return (error);
 	}
 	str_to_lowercase(cmd->argv[0]);

@@ -114,7 +114,7 @@ int	set_terminal(void);
 void 	set_signal(void);
 int 	envp_to_env_lst(char **envp, t_env **env_lst);
 void	env_lstclear(t_env **lst, void (*del)(void *));
-int		parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info *info);
+int		parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info **info);
 int		lexical_analyzer(t_token **tokens, char *input, t_env **env_lst);
 t_token	*token_new(char *value, t_tags tag, t_quotes quote);
 void	token_add_back(t_token **lst, t_token *new);
@@ -173,7 +173,7 @@ int	is_exit_status(t_env **env_lst, unsigned int *status);
 void exit_to_env_lst(t_env *env_lst);
 int	value_substr_to_env_value(t_token *token, int i, t_env *env, int len_envkey);
 void	remove_dollar_word(t_token *token, int *del_i, char *value_substr);
-void	info_cmds_input_clear(t_cmd *cmds, t_info *info, char *input);
+int	info_cmds_input_clear(t_cmd *cmds, t_info *info, char *input);
 /* pipex */
 void	make_pipe(t_info *info, int cnt);
 void	make_process(t_cmd *cmd, t_info *info, t_env **env_lst, int i);

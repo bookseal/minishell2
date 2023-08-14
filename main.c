@@ -6,25 +6,18 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 16:21:35 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:55:22 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	init_cmds_info(char *input, t_cmd **cmds, t_info **info)
+int	readline_to_input(char **input)
 {
-	add_history(input);
-	*cmds = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-	if (!(*cmds))
-		return (0);
-	*info = (t_info *)ft_calloc(1, sizeof(t_info));
-	if (!(*info))
-	{
-		free(*cmds);
-		return (0);
-	}
-	return (1);
+	*input = readline("minishell $ ");
+	if (!(*input))
+		return (null_input_exit());
+	return (0);
 }
 
 int	loop_prompt(t_env **env_lst)
@@ -34,29 +27,23 @@ int	loop_prompt(t_env **env_lst)
 	t_info	*info;
 	int		error;
 
+	info = 0;
 	while (1)
 	{
 		update_exit_status(env_lst, g_exit_status);
-		input = readline("minishell $ ");
-		if (!input)
-			return (null_input_exit());
-		if (init_cmds_info(input, &cmds, &info))
+		if (readline_to_input(&input))
+			return (1);
+		error = parsing(input, &cmds, env_lst, &info);
+		if (error)
 		{
-			error = parsing(input, &cmds, env_lst, info);
-			if (error)
-			{
-				info_cmds_input_clear(cmds, info, input);
-				if (error == 4)
-					break ;
-				continue ;
-			}
-			g_exit_status = execute(cmds, env_lst, info);
-			if (is_exit_status(env_lst, &g_exit_status))
-			{
-				info_cmds_input_clear(cmds, info, input);
+			info_cmds_input_clear(cmds, info, input);
+			if (error == 4)
 				break ;
-			}
+			continue ;
 		}
+		g_exit_status = execute(cmds, env_lst, info);
+		if (is_exit_status(env_lst, &g_exit_status))
+			return (info_cmds_input_clear(cmds, info, input));
 		info_cmds_input_clear(cmds, info, input);
 	}
 	return (g_exit_status % 256);
