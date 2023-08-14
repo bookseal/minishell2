@@ -75,8 +75,8 @@ CFLAGS		= -Wall -Wextra #-Werror
 CFLAGS		+= -g
 # CFLAGS		+= -fsanitize=address
 LIBFT		= libft
-LINKERS		= -lft -L$(LIBFT) -lreadline -L/Users/gichlee/.brew/opt/readline/lib
-INCLUDES	= -I ./includes -I/Users/gichlee/.brew/opt/readline/include
+LINKERS		= -lft -L$(LIBFT) -lreadline -L${HOME}/.brew/opt/readline/lib
+INCLUDES	= -I ./includes -I${HOME}/.brew/opt/readline/include
 #MACBOOK
 #LINKERS		= -lft -L$(LIBFT) -lreadline -L/opt/homebrew/opt/readline/lib
 #INCLUDES	= -I ./includes -I/opt/homebrew/opt/readline/include
