@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:47:49 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 21:47:50 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 14:33:36 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	parsing(char *input, t_cmd **cmds, t_env **env_lst, t_info *info)
 		free(info);
 		free(input);
 		return (1);
-	}	
+	}
+	token_clear(&tokens, &free);
 	return (0);
 }
