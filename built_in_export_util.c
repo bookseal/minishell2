@@ -1,11 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_export_util.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 19:32:52 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/08/14 19:41:02 by gichlee          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_env*	env_dup(t_env* head)
+t_env	*env_dup(t_env *head)
 {
+	t_env	*new_head;
+	t_env	*tail;
+	t_env	*temp;
 
-	t_env* new_head = NULL, *tail = NULL;
-	t_env* temp;
-
+	new_head = NULL;
+	tail = NULL;
 	if (head == NULL)
 		return (NULL);
 	while (head)
@@ -24,5 +38,5 @@ t_env*	env_dup(t_env* head)
 		}
 		head = head->next;
 	}
-	return new_head;
+	return (new_head);
 }

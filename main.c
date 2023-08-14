@@ -6,11 +6,13 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 19:19:56 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:39:42 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+unsigned int	g_exit_status;
 
 int	readline_to_input(char **input)
 {
