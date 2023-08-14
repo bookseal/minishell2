@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 15:06:39 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:21:35 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	loop_prompt(t_env **env_lst)
 	char	*input;
 	t_cmd	*cmds;
 	t_info	*info;
+	int		error;
 
 	while (1)
 	{
@@ -41,8 +42,14 @@ int	loop_prompt(t_env **env_lst)
 			return (null_input_exit());
 		if (init_cmds_info(input, &cmds, &info))
 		{
-			if (parsing(input, &cmds, env_lst, info))
+			error = parsing(input, &cmds, env_lst, info);
+			if (error)
+			{
+				info_cmds_input_clear(cmds, info, input);
+				if (error == 4)
+					break ;
 				continue ;
+			}
 			g_exit_status = execute(cmds, env_lst, info);
 			if (is_exit_status(env_lst, &g_exit_status))
 			{
@@ -57,7 +64,7 @@ int	loop_prompt(t_env **env_lst)
 
 void	leak(void)
 {
-	system("leaks minishell");
+	system("leaks $PPID");
 }
 
 int	main(int argc, char **argv, char **envp)

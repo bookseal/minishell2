@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 13:35:42 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:18:08 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	handle_error(int error, t_token **tokens, t_env **env_lst)
 	}
 	else if (error == 3)
 		return (update_exit_status(env_lst, 3));
+	else if (error == 4)
+	{
+		// printf("error 28\n");
+		return (error);
+	}
 	return (update_exit_status(env_lst, 1));
 }
 
@@ -35,7 +40,11 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 	create_argv(cmd, tokens);
 	error = handle_redirection(tokens, cmd);
 	if (error)
-		return (handle_error(error, tokens, env_lst));
+	{
+		error = handle_error(error, tokens, env_lst);
+		// printf("error 45 = %d\n", error);
+		return (error);
+	}
 	str_to_lowercase(cmd->argv[0]);
 	cmd->built_in = is_built_in(cmd->argv[0]);
 	if (!cmd->built_in)
@@ -62,9 +71,9 @@ void	make_pipe(t_info *info, int cnt)
 	int	i;
 
 	i = -1;
-	info->fd = malloc(sizeof(int *) * cnt);
+	info->fd = ft_calloc(cnt + 1, sizeof(int *));
 	while (++i < cnt)
-		info->fd[i] = malloc(sizeof(int) * 2);
+		info->fd[i] = ft_calloc(2, sizeof(int));
 	i = -1;
 	while (++i < cnt)
 	{
@@ -77,19 +86,22 @@ int	syntax_analyzer(t_cmd **cmds, t_token **t, t_env **env_lst, t_info *info)
 {
 	int		cmd_cnt;
 	t_cmd	*cmd;
+	int		error;
 
 	cmd_cnt = 0;
 	cmd = *cmds;
-	if (token_to_cmd(cmd, t, env_lst))
-		return (1);
+	error = token_to_cmd(cmd, t, env_lst);
+	if (error)
+		return (error);
 	while (*t && (*t)->tag == PIPE)
 	{
 		(*t)->need_to_del = TRUE;
 		unnecessary_token_delete(t);
 		cmd = new_cmd_for_pipe(cmd);
 		cmd_cnt++;
-		if (token_to_cmd(cmd, t, env_lst))
-			return (1);
+		error = token_to_cmd(cmd, t, env_lst);
+		if (error)
+			return (error);
 	}
 	make_pipe(info, cmd_cnt);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 13:31:09 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 15:17:18 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*get_path_from_cmd(t_env *env_lst, char *cmd_name)
 			strs_free(paths);
 			return (path);
 		}
+		free(path);
 		i++;
 	}
 	strs_free(paths);
@@ -83,9 +84,11 @@ int	locate_cmd(t_cmd *cmd, t_env *env_lst)
 	}
 	else
 	{
+		free(path);
 		print_error(0, "command not found");
 		g_exit_status = 127;
-		return (update_exit_status(&env_lst, g_exit_status));
+		update_exit_status(&env_lst, g_exit_status);
+		return (1);
 	}
 	return (0);
 }

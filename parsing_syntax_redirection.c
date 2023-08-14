@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:22:27 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 13:36:02 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:11:51 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ int	handle_redirection(t_token **tokens, t_cmd *cmd)
 	{
 		(*tokens)->need_to_del = TRUE;
 		if ((*tokens)->next != 0 && (*tokens)->next->tag == REDIRECT_INFO)
+		{
 			error = parsing_redirs(tokens, cmd);
+			if (error == 4)
+				return (error);
+		}
 		else
 			return (2);
 		unnecessary_token_delete(tokens);

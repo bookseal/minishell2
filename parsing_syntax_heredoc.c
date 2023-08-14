@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:21:14 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 13:36:29 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 16:09:35 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	open_heredoc(char *end, int *fd_pipe)
 	close(fd_pipe[0]);
 	loop_heredoc(end, fd_pipe[1]);
 	close(fd_pipe[1]);
-	exit(0);
 }
 
 static int	dup_heredoc(t_cmd *cmd, int *fd_pipe)
@@ -83,7 +82,10 @@ int	handle_heredoc(t_token *token, t_cmd *cmd)
 		exit(1);
 	pid = fork();
 	if (pid == 0)
+	{
 		open_heredoc(token->value, fd_pipe);
+		return (4);
+	}
 	else
 		dup_heredoc(cmd, fd_pipe);
 	return (0);
