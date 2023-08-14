@@ -1,19 +1,21 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_pwd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 15:22:57 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/08/14 18:58:17 by jiwonle2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	get_from_env(t_env *env_lst)
+#include "minishell.h"
+
+void	print_export_util(char *a, char *b)
 {
-	while (env_lst != 0)
-	{
-		// If the current variable is PWD, print its value
-		if (ft_strncmp(env_lst->key, "PWD", 4) == 0)
-		{
-			ft_putstr_fd(env_lst->value, 1);
-			ft_putchar_fd('\n', 1);
-			return (1);
-		}
-		env_lst = env_lst->next;
-	}
-	return (0);
+	ft_putstr_fd(a, 1);
+	ft_putstr_fd(b, 1);
 }
 
 int	get_pwd_str(t_env **env_lst, char **pwd)

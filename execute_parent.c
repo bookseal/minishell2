@@ -6,11 +6,11 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:56:21 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/13 19:56:22 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:25 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 void	close_fd(t_cmd *cmds)
 {

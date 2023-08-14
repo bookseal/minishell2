@@ -6,11 +6,26 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:46:28 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/13 19:46:29 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:57:56 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
+
+void	new_env_util(t_env **env, char *key, char *value, t_env_tag tag)
+{
+	while (*env)
+	{
+		if (!ft_strncmp((*env)->key, key, ft_strlen((*env)->key) + 1))
+		{
+			free((*env)->value);
+			(*env)->value = ft_strdup(value);
+			(*env)->tag = tag;
+			break ;
+		}
+		(*env) = (*env)->next;
+	}
+}
 
 char	*get_pwd(t_env **env_lst)
 {

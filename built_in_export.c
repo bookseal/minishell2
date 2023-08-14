@@ -1,6 +1,18 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_export.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 15:22:54 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/08/14 18:58:14 by jiwonle2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void new_env(t_env **env_lst, char *key, char *value)
+#include "minishell.h"
+
+void	new_env(t_env **env_lst, char *key, char *value)
 {
 	t_env_tag	tag;
 	t_env		*env;
@@ -12,17 +24,7 @@ void new_env(t_env **env_lst, char *key, char *value)
 		tag = ENV_NO_VALUE;
 	}
 	env = *env_lst;
-	while (env != 0)
-	{
-		if (!ft_strncmp(env->key, key, ft_strlen(env->key) + 1))
-		{
-			free(env->value);
-			env->value = ft_strdup(value);
-			env->tag = tag;
-			break ;
-		}
-		env = env->next;
-	}
+	new_env_util(&env, key, value, tag);
 	if (!env)
 	{
 		env = env_lstnew_malloc(key, value);
@@ -42,7 +44,8 @@ int	is_key_name_error(char *key)
 	i = 1;
 	while (key[i] != '\0')
 	{
-		if (!((key[i] >= 48 && key[i] <= 57) || (key[i] == '_') || ft_isalpha(key[i])))
+		if (!((key[i] >= 48 && key[i] <= 57) || (key[i] == '_')
+				|| ft_isalpha(key[i])))
 			return (print_error(0, "NOT VALID KEY"));
 		i++;
 	}
@@ -72,14 +75,13 @@ int	update_env(char *str, t_env **env_lst)
 	return (0);
 }
 
-int	print_env_lst_export(t_env **env_lst)
+void	print_env_lst_export(t_env **env_lst)
 {
 	t_env	*new_env_lst;
 	t_env	*env;
 
 	new_env_lst = env_dup(*env_lst);
 	env = new_env_lst;
-	env_merge_sort(&env);
 	while (env)
 	{
 		if (env->tag == ENV_EXIT)
@@ -87,23 +89,19 @@ int	print_env_lst_export(t_env **env_lst)
 			env = env->next;
 			continue ;
 		}
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(env->key, 1);
+		print_export_util("declare -x ", env->key);
 		if (env->tag == ENV_NO_VALUE)
 		{
 			ft_putendl_fd("", 1);
 			env = env->next;
 			continue ;
 		}
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd("\"", 1);
-		ft_putstr_fd(env->value, 1);
-		ft_putstr_fd("\"", 1);
+		print_export_util("=", "\"");
+		print_export_util(env->value, "\"");
 		ft_putendl_fd("", 1);
 		env = env->next;
 	}
 	env_lstclear(&new_env_lst, &free);
-	return (0);
 }
 
 int	built_in_export(t_cmd *cmd, t_env **env_lst)
@@ -118,7 +116,7 @@ int	built_in_export(t_cmd *cmd, t_env **env_lst)
 		return (0);
 	}
 	i = 1;
-	while (cmd->argv[i] != 0)
+	while (cmd->argv[i])
 	{
 		update_env(cmd->argv[i], env_lst);
 		i++;

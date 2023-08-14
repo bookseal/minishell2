@@ -12,7 +12,7 @@
 # #INCLUDES	= -I ./includes -I/opt/homebrew/opt/readline/include
 # RM			= rm -rf
 # .PHONY:		all clean fclean re
-# ./%.o:		./%.c ./main.h
+# ./%.o:		./%.c ./minishell.h
 # 			$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 # all:		$(NAME)
 # $(NAME):	$(OBJS)
@@ -34,7 +34,6 @@ SRCS		= main.c \
 				built_in_echo.c \
 				built_in_env.c \
 				built_in_exit.c \
-				built_in_export_merge_sort.c \
 				built_in_export.c \
 				built_in_pwd.c \
 				built_in_unset.c \
@@ -84,7 +83,7 @@ INCLUDES	= -I ./includes -I${HOME}/.brew/opt/readline/include
 RM			= rm -rf
 
 .PHONY:		all clean fclean re
-%.o:		%.c ./main.h
+%.o:		%.c ./minishell.h
 			$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 all:		$(NAME)
 

@@ -6,11 +6,11 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:54:08 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 17:27:16 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 {

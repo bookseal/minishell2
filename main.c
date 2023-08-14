@@ -6,11 +6,11 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 17:14:50 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:19:56 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	readline_to_input(char **input)
 {

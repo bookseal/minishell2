@@ -6,11 +6,11 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:22:27 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 16:11:51 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	open_file(t_token *t, int flag)
 {

@@ -6,11 +6,11 @@
 /*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:06:47 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 19:46:17 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:30 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 void	pipex(t_cmd *cmd, t_env **env_lst, t_info *info)
 {

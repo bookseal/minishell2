@@ -6,11 +6,11 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:58:56 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:36:31 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 void	calculate_count_c(t_token *token, char c, int *count_c, int *i)
 {

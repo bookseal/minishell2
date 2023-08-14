@@ -1,4 +1,16 @@
-#include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   built_in_exit.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/14 15:22:45 by jiwonle2          #+#    #+#             */
+/*   Updated: 2023/08/14 18:58:09 by jiwonle2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 static char	*atoa_removed_spaces_sign(char *str, int *sign)
 {
@@ -25,19 +37,17 @@ static char	*atoa_removed_spaces_sign(char *str, int *sign)
 	return (str);
 }
 
-int	argv_to_status(const char *str)
+int	argv_to_status(const char *str, int s)
 {
 	char				*num_str;
-	int					s;
 	unsigned long long	res[3];
 
-	s = 1;
 	num_str = atoa_removed_spaces_sign((char *)str, &s);
 	if (num_str == 0 || *num_str == 0)
 		return (1);
 	res[0] = 0;
 	res[1] = 0;
-	while (*num_str != '\0')
+	while (*num_str)
 	{
 		if (!ft_isdigit(*num_str))
 			return (1);
@@ -71,7 +81,7 @@ int	is_valid_argv_1(t_cmd *cmd)
 			return (FALSE);
 		i++;
 	}
-	if (argv_to_status(cmd->argv[1]))
+	if (argv_to_status(cmd->argv[1], 1))
 		return (FALSE);
 	return (TRUE);
 }
@@ -86,23 +96,13 @@ void	exit_to_env_lst(t_env *env_lst)
 	env_lst->exit_status = g_exit_status;
 }
 
-int	ft_get_argc(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
 int	built_in_exit(t_cmd *cmd, t_env **env_lst)
 {
 	int	argc;
 
-	argc = ft_get_argc(cmd->argv);
+	argc = 0;
+	while (cmd->argv[argc])
+		argc++;
 	ft_putendl_fd("exit", 1);
 	if (argc == 1)
 		;
@@ -117,7 +117,7 @@ int	built_in_exit(t_cmd *cmd, t_env **env_lst)
 		g_exit_status = 255;
 	}
 	else
-		argv_to_status(cmd->argv[1]);
+		argv_to_status(cmd->argv[1], 1);
 	exit_to_env_lst(*env_lst);
 	return (0);
 }

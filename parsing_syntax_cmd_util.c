@@ -6,11 +6,11 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 22:11:14 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 14:42:27 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 19:12:11 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 void	cmd_delone(t_cmd *cmd, void (*del)(void *))
 {

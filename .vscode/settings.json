@@ -57,7 +57,7 @@
 "C_Cpp_Runner.useLinkTimeOptimization": false,
 "files.associations": {
 	"libft.h": "c",
-	"main.h": "c",
+	"minishell.h": "c",
 	"stdio.h": "c",
 	"__string": "c",
 	"typeinfo": "c",

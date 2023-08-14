@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:42:46 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/14 13:38:52 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:03 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	is_option_n(char *str)
 {
@@ -42,7 +42,7 @@ void	print_argv(t_cmd *cmd, int i)
 	int	is_first_str;
 
 	is_first_str = TRUE;
-	while (cmd->argv[i] != 0)
+	while (cmd->argv[i])
 	{
 		if (is_first_str == FALSE)
 			ft_putchar_fd(' ', 1);
@@ -64,7 +64,7 @@ int	built_in_echo(t_cmd *cmd)
 	}
 	option_n = FALSE;
 	i = 0;
-	while (cmd->argv[++i] != 0)
+	while (cmd->argv[++i])
 	{
 		if (is_option_n(cmd->argv[i]))
 		{

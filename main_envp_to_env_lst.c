@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	envp_to_env_lst(char **envp, t_env **env_lst)
 {

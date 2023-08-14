@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute_env_lst_to_envp.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:12:41 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:14:16 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:23 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	get_envp_size(t_env *env_lst)
 {
 	t_env	*env;
 	int		envp_size;
-	
+
 	env = env_lst;
 	envp_size = 0;
 	while (env)

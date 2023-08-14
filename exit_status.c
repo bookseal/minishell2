@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:53:43 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:04:07 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 18:58:41 by jiwonle2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "minishell.h"
 
 int	is_exit_status(t_env **env_lst, unsigned int *status)
 {
