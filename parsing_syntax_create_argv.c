@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:20:19 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:21:06 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:36:39 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	tokens_to_argv(t_cmd *cmd, t_token **tokens)
 {
 	int		i;
 	t_token	*tmp;
-	t_token	*prev;
 
 	i = 0;
 	tmp = *tokens;

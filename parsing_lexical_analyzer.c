@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:47:54 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:33:03 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:45:08 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	store_token(t_token **tokens, int *token_count, size_t *len, char *seg)
 
 	if (seg && *len)
 	{
+		quote = NO_QUOTE;
 		token_value = (char *)malloc(sizeof(char) * (*len + 1));
 		ft_strlcpy(token_value, seg, *len + 1);
 		if (token_value[0] == '\'')

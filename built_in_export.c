@@ -49,7 +49,7 @@ int	is_key_name_error(char *key)
 	return (0);
 }
 
-int	update_env(char *str, int *res, t_env **env_lst)
+int	update_env(char *str, t_env **env_lst)
 {
 	char	*delimiter;
 	char	*key;
@@ -120,7 +120,7 @@ int	built_in_export(t_cmd *cmd, t_env **env_lst)
 	i = 1;
 	while (cmd->argv[i] != 0)
 	{
-		update_env(cmd->argv[i], &res, env_lst);
+		update_env(cmd->argv[i], env_lst);
 		i++;
 	}
 	return (0);

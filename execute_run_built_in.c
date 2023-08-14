@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:30:00 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:30:01 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:39:07 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	run_built_in(t_cmd *cmd, t_env **env_lst)
 {
 	if (cmd->built_in == ECHO_CMD)
-		return (built_in_echo(cmd, env_lst));
+		return (built_in_echo(cmd));
 	else if (cmd->built_in == CD_CMD)
 		return (built_in_cd(cmd, env_lst));
 	else if (cmd->built_in == PWD_CMD)

@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:20:57 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:31:09 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**get_path_from_env_lst(t_env *env_lst)
 {
 	char	**path;
 
+	path = 0;
 	while (env_lst)
 	{
 		if (!ft_strncmp(env_lst->key, "PATH", 5))

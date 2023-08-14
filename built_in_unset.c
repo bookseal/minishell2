@@ -25,7 +25,7 @@ void	unnecessary_env_delete(t_env **env_lst)
 	}
 }
 
-void	del_env(char *key, t_cmd *cmd, t_env **env_lst)
+void	del_env(char *key, t_env **env_lst)
 {
 	t_env	*env;
 
@@ -44,7 +44,6 @@ void	del_env(char *key, t_cmd *cmd, t_env **env_lst)
 
 int	unset_envs(t_cmd *cmd, t_env **env_lst)
 {
-	t_env	*env;
 	int		res;
 	int		i;
 	char	*key;
@@ -57,7 +56,7 @@ int	unset_envs(t_cmd *cmd, t_env **env_lst)
 		res = is_key_name_error(key);
 		if (res)
 			return (1);
-		del_env(key, cmd, env_lst);
+		del_env(key, env_lst);
 		i++;
 	}
 	return (res);

@@ -72,7 +72,8 @@ SRCS		= main.c \
 OBJS		= $(SRCS:%.c=%.o)
 CC			= cc
 CFLAGS		= -Wall -Wextra #-Werror
-CFLAGS		+= -g -fsanitize=address
+CFLAGS		+= -g
+#CFLAGS		+= -fsanitize=address
 LIBFT		= libft
 LINKERS		= -lft -L$(LIBFT) -lreadline -L/Users/gichlee/.brew/opt/readline/lib
 INCLUDES	= -I ./includes -I/Users/gichlee/.brew/opt/readline/include

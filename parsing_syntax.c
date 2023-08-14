@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:18:01 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:21:36 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:35:42 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 	cmd->fd_in = STDIN;
 	cmd->fd_out = STDOUT;
 	create_argv(cmd, tokens);
-	error = handle_redirection(tokens, cmd, env_lst);
+	error = handle_redirection(tokens, cmd);
 	if (error)
 		return (handle_error(error, tokens, env_lst));
 	str_to_lowercase(cmd->argv[0]);
@@ -48,10 +48,9 @@ int	token_to_cmd(t_cmd *cmd, t_token **tokens, t_env **env_lst)
 	return (error);
 }
 
-t_cmd	*new_cmd_for_pipe(t_cmd *cmd, t_token **tokens)
+t_cmd	*new_cmd_for_pipe(t_cmd *cmd)
 {
 	t_cmd	*new_cmd;
-	int		fd_pipe[2];
 
 	new_cmd = ft_calloc(1, sizeof(t_cmd));
 	cmd->next = new_cmd;
@@ -77,7 +76,6 @@ void	make_pipe(t_info *info, int cnt)
 int	syntax_analyzer(t_cmd **cmds, t_token **t, t_env **env_lst, t_info *info)
 {
 	int		cmd_cnt;
-	int		error;
 	t_cmd	*cmd;
 
 	cmd_cnt = 0;
@@ -88,7 +86,7 @@ int	syntax_analyzer(t_cmd **cmds, t_token **t, t_env **env_lst, t_info *info)
 	{
 		(*t)->need_to_del = TRUE;
 		unnecessary_token_delete(t);
-		cmd = new_cmd_for_pipe(cmd, t);
+		cmd = new_cmd_for_pipe(cmd);
 		cmd_cnt++;
 		if (token_to_cmd(cmd, t, env_lst))
 			return (1);

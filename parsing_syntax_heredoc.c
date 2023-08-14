@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 22:21:14 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/12 22:21:36 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:36:29 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signal_handler_heredoc(int sig)
 	}
 }
 
-void	loop_heredoc(char *end, t_cmd *cmd, t_env *env_lst, int fd)
+void	loop_heredoc(char *end, int fd)
 {
 	char	*line;
 
@@ -40,11 +40,11 @@ void	loop_heredoc(char *end, t_cmd *cmd, t_env *env_lst, int fd)
 		free(line);
 }
 
-static void	open_heredoc(char *end, t_cmd *cmd, t_env **env_lst, int *fd_pipe)
+static void	open_heredoc(char *end, int *fd_pipe)
 {
 	signal(SIGINT, signal_handler_heredoc);
 	close(fd_pipe[0]);
-	loop_heredoc(end, cmd, *env_lst, fd_pipe[1]);
+	loop_heredoc(end, fd_pipe[1]);
 	close(fd_pipe[1]);
 	exit(0);
 }
@@ -71,7 +71,7 @@ static int	dup_heredoc(t_cmd *cmd, int *fd_pipe)
 	return (0);
 }
 
-int	handle_heredoc(t_token *token, t_cmd *cmd, t_env **env_lst)
+int	handle_heredoc(t_token *token, t_cmd *cmd)
 {
 	int	pid;
 	int	fd_pipe[2];
@@ -83,7 +83,7 @@ int	handle_heredoc(t_token *token, t_cmd *cmd, t_env **env_lst)
 		exit(1);
 	pid = fork();
 	if (pid == 0)
-		open_heredoc(token->value, cmd, env_lst, fd_pipe);
+		open_heredoc(token->value, fd_pipe);
 	else
 		dup_heredoc(cmd, fd_pipe);
 	return (0);

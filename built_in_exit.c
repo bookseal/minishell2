@@ -64,7 +64,7 @@ int	is_valid_argv_1(t_cmd *cmd)
 	c = cmd->argv[1][i];
 	if (c == '-' || c == '+')
 		i++;
-	while (i < ft_strlen(cmd->argv[1]))
+	while (i < (int)ft_strlen(cmd->argv[1]))
 	{
 		c = cmd->argv[1][i];
 		if (!ft_isdigit(c))

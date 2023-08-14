@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:54:08 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/13 20:27:11 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 13:37:36 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 int	handle_dou_q(t_token *token, t_env *env_lst, int *i)
 {
 	(*i)++;
-	while (*i < ft_strlen(token->value) && token->value[*i] != '\"')
+	while (*i < (int)ft_strlen(token->value) && token->value[*i] != '\"')
 	{
 		if (token->value[*i] == '$' && dollar_to_env(token, i, env_lst))
 			return (1);
@@ -51,7 +51,7 @@ int	handle_dou_q(t_token *token, t_env *env_lst, int *i)
 int	handle_single_quote(t_token *token, int *i)
 {
 	(*i)++;
-	while (*i < ft_strlen(token->value) && token->value[*i] != '\'')
+	while (*i < (int)ft_strlen(token->value) && token->value[*i] != '\'')
 		(*i)++;
 	return (0);
 }
@@ -67,7 +67,7 @@ void	replace_env(t_token *tokens, t_env *env_lst)
 		start_i = 0;
 		c = tokens->value[start_i];
 		front = c;
-		while (start_i < ft_strlen(tokens->value))
+		while (start_i < (int)ft_strlen(tokens->value))
 		{
 			c = tokens->value[start_i];
 			if (front == '\'' && handle_single_quote(tokens, &start_i))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwonle2 <jiwonle2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 19:42:46 by jiwonle2          #+#    #+#             */
-/*   Updated: 2023/08/13 19:55:39 by jiwonle2         ###   ########.fr       */
+/*   Updated: 2023/08/14 13:38:52 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	print_argv(t_cmd *cmd, int i)
 	}
 }
 
-int	built_in_echo(t_cmd *cmd, t_env **env_lst)
+int	built_in_echo(t_cmd *cmd)
 {
 	int	option_n;
 	int	i;
