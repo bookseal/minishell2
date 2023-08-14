@@ -35,6 +35,7 @@ SRCS		= main.c \
 				built_in_env.c \
 				built_in_exit.c \
 				built_in_export.c \
+				built_in_export_util.c \
 				built_in_pwd.c \
 				built_in_unset.c \
 				execute_env_lst_to_envp.c \
