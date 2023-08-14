@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:26:58 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 15:17:18 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:34:47 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	full_path_access_ok(t_cmd *cmd, t_env *env_lst, char **path)
 		g_exit_status = 127;
 		return (update_exit_status(&env_lst, g_exit_status));
 	}
+	free(*path);
 	cmd->is_cmd = 1;
 	return (0);
 }
