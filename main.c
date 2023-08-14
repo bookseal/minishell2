@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:16:36 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 16:55:22 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:14:50 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	loop_prompt(t_env **env_lst)
 			return (info_cmds_input_clear(cmds, info, input));
 		info_cmds_input_clear(cmds, info, input);
 	}
-	return (g_exit_status % 256);
+	return (info_cmds_input_clear(cmds, info, input));
 }
 
 void	leak(void)

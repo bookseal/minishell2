@@ -6,7 +6,7 @@
 /*   By: gichlee <gichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 21:54:08 by gichlee           #+#    #+#             */
-/*   Updated: 2023/08/14 13:37:36 by gichlee          ###   ########.fr       */
+/*   Updated: 2023/08/14 17:27:16 by gichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	dollar_to_env(t_token *token, int *start_i, t_env *env_lst)
 		return (1);
 	}
 	value_substr = ft_substr(token->value, *start_i + 1, len_envkey);
+	if (*value_substr == '\0')
+	{
+		free(value_substr);
+		return (0);
+	}
 	env = get_env_value(value_substr, env_lst);
 	if (!env)
 	{
